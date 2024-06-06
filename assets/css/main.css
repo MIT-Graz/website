@@ -81,7 +81,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #323533;
+		background: #464747;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 19pt;
 		font-weight: 300;
@@ -1760,7 +1760,7 @@ input, select, textarea {
 		.image.avatar48 {
 			width: 48px;
 			height: 48px;
-			background: #f00;
+			background: rgb(0, 225, 255);
 		}
 
 			.image.avatar48 img {
@@ -1948,10 +1948,10 @@ input, select, textarea {
 		position: relative;
 		display: inline-block;
 		border-radius: 0.35em;
-		color: #fff !important;
+		color: #ffffff !important;
 		text-decoration: none;
 		padding: 0.75em 2.5em 0.75em 2.5em;
-		background-color: #8ebebc;
+		background-color: #8ebcbe;
 		border: 0;
 		cursor: pointer;
 		background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15)), url("images/overlay.png");
@@ -1969,7 +1969,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #9ececc;
+			background-color: #5b928f;
 		}
 
 		input[type="button"]:active,
@@ -1977,7 +1977,7 @@ input, select, textarea {
 		input[type="reset"]:active,
 		button:active,
 		.button:active {
-			background-color: #7eaeac;
+			background-color: #217fa5;
 		}
 
 /* Item */
@@ -2049,7 +2049,7 @@ input, select, textarea {
 		-webkit-justify-content: space-between;
 		-ms-justify-content: space-between;
 		justify-content: space-between;
-		background: #2F4F4F url("images/overlay.png");
+		background: #222629 url("images/overlay.png");
 		box-shadow: inset -0.25em 0 0.25em 0 rgba(0, 0, 0, 0.1);
 		color: #fff;
 		height: 100%;
@@ -2094,7 +2094,7 @@ input, select, textarea {
 			}
 
 				#header .icons a:hover {
-					color: #fff;
+					color: #079adf;
 				}
 
 	#logo {
@@ -2140,7 +2140,7 @@ input, select, textarea {
 			#nav ul li a {
 				display: block;
 				padding: 0.5em 1.5em 0.5em 1.5em;
-				color: rgba(255, 255, 255, 0.5);
+				color: rgba(255, 255, 255, 0.973);
 				text-decoration: none;
 				outline: 0;
 				border: 0;
@@ -2159,20 +2159,20 @@ input, select, textarea {
 					#nav ul li a span:before {
 						position: absolute;
 						left: 0;
-						color: #00FFFF;
+						color: hwb(184 4% 1%);
 						text-align: center;
 						width: 1.25em;
 						line-height: 1.75em;
 					}
 
 				#nav ul li a.active {
-					background: rgba(0, 0, 0, 0.15);
+					background: rgba(92, 88, 88, 0.15);
 					box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
 					color: #ffffff;
 				}
 
 					#nav ul li a.active span:before {
-						color:	#ffffff;
+						color: #ffffff;
 					}
 
 /* Footer */
@@ -2456,7 +2456,7 @@ input, select, textarea {
 				width: 275px;
 				z-index: 10002;
 				width: 275px;
-				background: #55b7dd url("images/overlay.png");
+				background: #dd8755 url("images/overlay.png");
 				box-shadow: inset -0.25em 0 0.25em 0 rgba(0, 0, 0, 0.125);
 			}
 
