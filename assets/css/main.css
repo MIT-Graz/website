@@ -2647,3 +2647,26 @@ input, select, textarea {
 				}
 
 	}
+
+/* ktu e shtova ket pjesen per ti vendos iconat e "software", "hardware", "web-design", "security"  ne mes te faqes.... kjo eshte vetem 1 shtes */
+
+
+#portfolio .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#portfolio .col-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Ensure items stay centered on smaller screens */
+@media screen and (max-width: 960px) {
+    #portfolio .col-4 {
+        width: 100%;
+    }
+}
