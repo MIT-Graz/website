@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.m-it-solution.com/sitemap.xml
