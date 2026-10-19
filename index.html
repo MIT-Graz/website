@@ -930,6 +930,297 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 })();
 </script>
 
+<!-- ===== AI CHATBOT WIDGET ===== -->
+<style>
+/* Chat button */
+.cb-fab{position:fixed;bottom:24px;left:24px;z-index:100;display:flex;align-items:center;gap:0;cursor:pointer;border:none;background:none;padding:0;text-decoration:none}
+.cb-fab .cb-label{background:#fff;color:#0D1726;font:600 14px/1 var(--body);padding:10px 16px;border-radius:0 999px 999px 0;box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:0;transform:translateX(-12px);transition:opacity .25s ease,transform .25s ease;white-space:nowrap;pointer-events:none}
+.cb-fab:hover .cb-label,.cb-fab:focus-visible .cb-label{opacity:1;transform:none}
+.cb-fab .cb-ic{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 4px 20px var(--glow);flex:none;transition:transform .3s cubic-bezier(.3,1.6,.5,1),box-shadow .3s ease;order:-1}
+.cb-fab:hover .cb-ic{transform:scale(1.08);box-shadow:0 8px 28px var(--glow)}
+.cb-notif{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#F2A25A;color:#fff;font:700 11px/18px var(--mono);text-align:center;border:2px solid #fff;display:none}
+.cb-notif.show{display:block}
+@media (max-width:560px){.cb-fab{bottom:16px;left:16px}.cb-label{display:none}}
+
+/* Chat window */
+.cb-win{position:fixed;bottom:92px;left:24px;z-index:101;width:360px;max-width:calc(100vw - 32px);background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow:hidden;transform:scale(.92) translateY(16px);opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .3s ease;transform-origin:bottom left;max-height:calc(100vh - 120px)}
+.cb-win.open{transform:none;opacity:1;pointer-events:all}
+@media (max-width:560px){.cb-win{left:8px;right:8px;width:auto;bottom:84px}}
+
+/* Header */
+.cb-head{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--accent);color:#fff}
+.cb-av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;flex:none}
+.cb-head-txt{flex:1}
+.cb-head-txt strong{display:block;font:700 15px/1 var(--body)}
+.cb-head-txt span{font:500 12px/1 var(--body);opacity:.8;display:flex;align-items:center;gap:5px;margin-top:3px}
+.cb-online{width:7px;height:7px;border-radius:50%;background:#3FD19A}
+.cb-close{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;padding:4px;border-radius:6px;transition:color .2s;line-height:1}
+.cb-close:hover{color:#fff}
+
+/* Messages */
+.cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;min-height:200px;max-height:380px}
+.cb-msgs::-webkit-scrollbar{width:4px}
+.cb-msgs::-webkit-scrollbar-track{background:transparent}
+.cb-msgs::-webkit-scrollbar-thumb{background:var(--line);border-radius:999px}
+.cb-msg{display:flex;flex-direction:column;max-width:85%}
+.cb-msg.bot{align-self:flex-start}
+.cb-msg.user{align-self:flex-end}
+.cb-bubble{padding:10px 14px;border-radius:16px;font:15px/1.5 var(--body);word-break:break-word}
+.cb-msg.bot .cb-bubble{background:var(--accent-soft);color:var(--ink);border-bottom-left-radius:4px}
+.cb-msg.user .cb-bubble{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
+.cb-time{font:500 11px/1 var(--mono);color:var(--muted);margin-top:4px;padding-inline:4px}
+.cb-msg.user .cb-time{text-align:right}
+.cb-typing{display:flex;gap:5px;align-items:center;padding:12px 14px;background:var(--accent-soft);border-radius:16px 16px 16px 4px;width:fit-content}
+.cb-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.4;animation:cbdot 1.2s ease-in-out infinite}
+.cb-dot:nth-child(2){animation-delay:.2s}
+.cb-dot:nth-child(3){animation-delay:.4s}
+@keyframes cbdot{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
+
+/* Quick replies */
+.cb-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}
+.cb-qbtn{background:none;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:7px 13px;font:500 13px/1 var(--body);cursor:pointer;transition:background .2s,color .2s}
+.cb-qbtn:hover{background:var(--accent);color:#fff}
+
+/* Input */
+.cb-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);align-items:flex-end}
+.cb-inp{flex:1;resize:none;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px/1.4 var(--body);color:var(--ink);background:var(--bg);transition:border-color .2s;max-height:100px;overflow-y:auto}
+.cb-inp:focus{outline:none;border-color:var(--accent)}
+.cb-send{width:38px;height:38px;border-radius:10px;background:var(--accent);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;flex:none;transition:transform .25s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.cb-send:disabled{opacity:.5;cursor:default;transform:none}
+.cb-send:not(:disabled):hover{transform:scale(1.1)}
+</style>
+
+<!-- Chat FAB -->
+<button class="cb-fab" id="cbFab" aria-label="KI-Assistent öffnen" aria-expanded="false">
+  <span class="cb-ic">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  </span>
+  <span class="cb-label">KI-Assistent</span>
+  <span class="cb-notif" id="cbNotif" aria-hidden="true">1</span>
+</button>
+
+<!-- Chat Window -->
+<div class="cb-win" id="cbWin" role="dialog" aria-label="M-iT KI-Assistent" aria-modal="true">
+  <div class="cb-head">
+    <span class="cb-av"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+    <div class="cb-head-txt">
+      <strong>M-iT Assistent</strong>
+      <span><span class="cb-online"></span>Online · Sofortantwort</span>
+    </div>
+    <button class="cb-close" id="cbClose" aria-label="Chat schließen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="cb-msgs" id="cbMsgs" aria-live="polite" aria-relevant="additions"></div>
+
+  <div class="cb-quick" id="cbQuick"></div>
+
+  <form class="cb-form" id="cbForm">
+    <textarea class="cb-inp" id="cbInp" rows="1" placeholder="Schreiben Sie uns…" aria-label="Nachricht eingeben" maxlength="1000"></textarea>
+    <button class="cb-send" type="submit" id="cbSend" aria-label="Senden" disabled>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+(function(){
+  // ── config ──────────────────────────────────────────────────────────────
+  // API key is stored securely in the Cloudflare Worker (never exposed here)
+  const PROXY_URL = 'WORKER_URL_PLACEHOLDER'; // replaced with Cloudflare Worker URL
+  const MODEL     = 'claude-haiku-4-5';
+  const SYSTEM  = `Du bist ein freundlicher KI-Assistent von M-iT Solution, einem IT-Support-Unternehmen in Graz, Österreich. Du hilfst Kunden bei Fragen zu den Leistungen und nimmst Support-Anfragen entgegen.
+
+Über M-iT Solution:
+- Website: www.m-it-solution.com
+- E-Mail: mit.solution.tech@gmail.com
+- Telefon/WhatsApp: +43 681 84948421
+- Einsatzgebiet: Graz und Umgebung, Fernwartung österreichweit
+
+Leistungen:
+1. Software – Windows & Mac, E-Mail & Microsoft 365, Updates & Neuinstallation
+2. Geräte & Einrichtung – PC/Laptop-Kaufberatung, Drucker, WLAN & Router
+3. Sicherheit – Virenschutz & Firewall, Backup & Wiederherstellung, Passwörter
+4. Web-Design – Neue Websites, Mobile-Optimierung, Pflege & Hosting
+5. Fernwartung – schnelle Hilfe per Fernzugriff, oft noch am selben Tag
+6. Vor-Ort-Service – persönlich beim Kunden
+
+Ablauf: Anfrage → Analyse → Lösung → Nachbetreuung.
+
+Regeln:
+- Sprich Kunden mit "Sie" an, sei freundlich und verständlich – kein Fachjargon
+- Antworte auf Deutsch, außer der Kunde schreibt in einer anderen Sprache
+- Halte Antworten kurz (2–4 Sätze), außer wenn mehr Detail nötig ist
+- Wenn jemand Hilfe braucht oder einen Termin möchte, frage nach: Name, Kontakt (Telefon oder E-Mail) und kurze Problembeschreibung
+- Sobald du Name + Kontakt + Problem hast, sage: "Vielen Dank! Wir melden uns so schnell wie möglich bei Ihnen." und weise auf WhatsApp hin: https://wa.me/4368184948421
+- Preise werden nach Aufwand berechnet und nach einem kostenlosen Erstgespräch besprochen – nenne keine konkreten Zahlen
+- Wichtige Garantie: Wenn wir ein Problem NICHT lösen können, zahlt der Kunde NICHTS. Keine Lösung = keine Kosten. Das ist unsere Garantie. Betone das, wenn Kunden nach Preisen oder Risiken fragen.
+- Wenn Kunden unsicher sind ob es sich lohnt: erinnere sie an diese Garantie – sie haben nichts zu verlieren`;
+
+  // ── state ────────────────────────────────────────────────────────────────
+  const history = [];
+  let   busy    = false;
+  let   notifShown = false;
+
+  // ── DOM refs ─────────────────────────────────────────────────────────────
+  const fab   = document.getElementById('cbFab');
+  const win   = document.getElementById('cbWin');
+  const close = document.getElementById('cbClose');
+  const msgs  = document.getElementById('cbMsgs');
+  const quick = document.getElementById('cbQuick');
+  const form  = document.getElementById('cbForm');
+  const inp   = document.getElementById('cbInp');
+  const send  = document.getElementById('cbSend');
+  const notif = document.getElementById('cbNotif');
+
+  // ── helpers ───────────────────────────────────────────────────────────────
+  function now(){
+    return new Date().toLocaleTimeString('de-AT',{hour:'2-digit',minute:'2-digit'});
+  }
+
+  function addMsg(role, text){
+    const wrap = document.createElement('div');
+    wrap.className = 'cb-msg ' + role;
+    const bub  = document.createElement('div');
+    bub.className = 'cb-bubble';
+    bub.textContent = text;
+    const time = document.createElement('span');
+    time.className = 'cb-time';
+    time.textContent = now();
+    wrap.appendChild(bub);
+    wrap.appendChild(time);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    return bub;
+  }
+
+  function showTyping(){
+    const t = document.createElement('div');
+    t.className = 'cb-msg bot';
+    t.id = 'cbTyping';
+    t.innerHTML = '<div class="cb-typing"><span class="cb-dot"></span><span class="cb-dot"></span><span class="cb-dot"></span></div>';
+    msgs.appendChild(t);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping(){
+    const t = document.getElementById('cbTyping');
+    if(t) t.remove();
+  }
+
+  function setQuick(options){
+    quick.innerHTML = '';
+    options.forEach(o => {
+      const b = document.createElement('button');
+      b.className = 'cb-qbtn';
+      b.type = 'button';
+      b.textContent = o;
+      b.addEventListener('click', () => { quick.innerHTML=''; sendMsg(o); });
+      quick.appendChild(b);
+    });
+  }
+
+  // ── open / close ──────────────────────────────────────────────────────────
+  function openChat(){
+    win.classList.add('open');
+    fab.setAttribute('aria-expanded','true');
+    notif.classList.remove('show');
+    if(!history.length) greet();
+    setTimeout(()=>inp.focus(), 300);
+  }
+
+  function closeChat(){
+    win.classList.remove('open');
+    fab.setAttribute('aria-expanded','false');
+  }
+
+  fab.addEventListener('click', () => win.classList.contains('open') ? closeChat() : openChat());
+  close.addEventListener('click', closeChat);
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeChat(); });
+
+  // ── greeting ──────────────────────────────────────────────────────────────
+  function greet(){
+    addMsg('bot','Hallo! 👋 Ich bin der KI-Assistent von M-iT Solution. Wie kann ich Ihnen heute helfen?');
+    setQuick(['🖥️ PC / Laptop Problem','📶 WLAN / Netzwerk','🦠 Virus / Sicherheit','📅 Termin anfragen','💰 Kosten & Garantie','🌐 Website erstellen']);
+    // show notification badge after 4s if chat is closed
+    setTimeout(() => {
+      if(!win.classList.contains('open') && !notifShown){
+        notif.classList.add('show');
+        notifShown = true;
+      }
+    }, 4000);
+  }
+
+  // ── send ──────────────────────────────────────────────────────────────────
+  async function sendMsg(text){
+    text = text.trim();
+    if(!text || busy) return;
+
+    addMsg('user', text);
+    history.push({role:'user', content: text});
+    inp.value = '';
+    inp.style.height = '';
+    send.disabled = true;
+    busy = true;
+    quick.innerHTML = '';
+
+    showTyping();
+
+    try {
+      const res = await fetch(PROXY_URL, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model:      MODEL,
+          max_tokens: 512,
+          system:     SYSTEM,
+          messages:   history
+        })
+      });
+
+      const data = await res.json();
+      removeTyping();
+
+      if(data.error){
+        addMsg('bot','Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt unter +43 681 84948421.');
+      } else {
+        const reply = data.content[0].text;
+        history.push({role:'assistant', content: reply});
+        addMsg('bot', reply);
+      }
+    } catch(e) {
+      removeTyping();
+      addMsg('bot','Verbindungsfehler. Bitte kontaktieren Sie uns direkt: mit.solution.tech@gmail.com oder +43 681 84948421.');
+    }
+
+    busy = false;
+    if(inp.value.trim()) send.disabled = false;
+  }
+
+  form.addEventListener('submit', e => { e.preventDefault(); sendMsg(inp.value); });
+
+  inp.addEventListener('input', () => {
+    send.disabled = !inp.value.trim();
+    inp.style.height = 'auto';
+    inp.style.height = Math.min(inp.scrollHeight, 100) + 'px';
+  });
+
+  inp.addEventListener('keydown', e => {
+    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); form.dispatchEvent(new Event('submit')); }
+  });
+
+  // Show notification badge after delay on first visit
+  setTimeout(() => {
+    if(!win.classList.contains('open') && !notifShown && !history.length){
+      notif.classList.add('show');
+      notifShown = true;
+    }
+  }, 5000);
+})();
+</script>
+<!-- ===== END CHATBOT ===== -->
+
 <!-- WhatsApp floating button -->
 <a class="wa-fab" href="https://wa.me/4368184948421" target="_blank" rel="noopener" aria-label="WhatsApp schreiben">
   <span class="wa-label">Schreiben Sie uns</span>
