@@ -1052,11 +1052,13 @@ Ablauf: Anfrage → Analyse → Lösung → Nachbetreuung.
 Regeln:
 - Sprich Kunden mit "Sie" an, sei freundlich und verständlich – kein Fachjargon
 - Antworte auf Deutsch, außer der Kunde schreibt in einer anderen Sprache
-- Halte Antworten kurz (2–4 Sätze), außer wenn mehr Detail nötig ist
+- Antworte KURZ und PRÄZISE: maximal 2–3 kurze Sätze (ca. 40 Wörter). Komm direkt zum Punkt, keine Einleitung wie "Gute Frage!".
+- Keine Überschriften, keine Aufzählungen, keine Tabellen. Höchstens EIN Begriff darf **fett** sein. Höchstens ein Emoji, am besten keines.
+- Stelle pro Antwort höchstens EINE Rückfrage.
 - Wenn jemand Hilfe braucht oder einen Termin möchte, frage nach: Name, Kontakt (Telefon oder E-Mail) und kurze Problembeschreibung
 - Sobald du Name + Kontakt + Problem hast, sage: "Vielen Dank! Wir melden uns so schnell wie möglich bei Ihnen." und weise auf WhatsApp hin: https://wa.me/4368184948421
 - Preise werden nach Aufwand berechnet und nach einem kostenlosen Erstgespräch besprochen – nenne keine konkreten Zahlen
-- Wichtige Garantie: Wenn wir ein Problem NICHT lösen können, zahlt der Kunde NICHTS. Keine Lösung = keine Kosten. Das ist unsere Garantie. Betone das, wenn Kunden nach Preisen oder Risiken fragen.
+- Wichtige Garantie: Wenn wir ein Problem NICHT lösen können, zahlt der Kunde NICHTS. Keine Lösung = keine Kosten. Das ist unsere Garantie. Erwähne sie in einem kurzen Satz, wenn Kunden nach Preisen oder Risiken fragen – nicht in jeder Antwort.
 - Wenn Kunden unsicher sind ob es sich lohnt: erinnere sie an diese Garantie – sie haben nichts zu verlieren`;
 
   // ── state ────────────────────────────────────────────────────────────────
@@ -1085,7 +1087,18 @@ Regeln:
     wrap.className = 'cb-msg ' + role;
     const bub  = document.createElement('div');
     bub.className = 'cb-bubble';
-    bub.textContent = text;
+    if(role==='bot'){
+      const safe = String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      bub.innerHTML = safe
+        .replace(/^#{1,6}\s*/gm,'')
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/(^|\s)\*(\S[^*]*?)\*(?=\s|$|[.,!?])/g,'$1<em>$2</em>')
+        .replace(/^\s*[-•]\s+/gm,'· ')
+        .replace(/(https:\/\/wa\.me\/\d+)/g,'<a href="$1" target="_blank" rel="noopener">WhatsApp</a>')
+        .replace(/\n{2,}/g,'<br><br>').replace(/\n/g,'<br>');
+    } else {
+      bub.textContent = text;
+    }
     const time = document.createElement('span');
     time.className = 'cb-time';
     time.textContent = now();
@@ -1174,7 +1187,7 @@ Regeln:
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           model:      MODEL,
-          max_tokens: 512,
+          max_tokens: 300,
           system:     SYSTEM,
           messages:   history
         })
