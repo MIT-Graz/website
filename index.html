@@ -401,13 +401,13 @@ legend{font-weight:600;font-size:14px;margin-bottom:8px}
 .svc.reveal.live{transition:transform .55s cubic-bezier(.3,0,.2,1),box-shadow .55s ease,border-color .45s ease}
 /* magic: rotating light border + sparkles */
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
-.svc .ring{position:absolute;inset:0;border-radius:inherit;padding:2.5px;pointer-events:none;z-index:4;
+.svc .ring,.mode .ring{position:absolute;inset:0;border-radius:inherit;padding:2.5px;pointer-events:none;z-index:4;
   background:conic-gradient(from var(--ang),transparent 0 55%,#7C9BFF 70%,#3FD19A 82%,#B08CFF 92%,transparent 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
   opacity:0;transition:opacity .5s ease;animation:ringSpin 5s linear infinite}
-.svc:hover .ring,.svc.active .ring{opacity:1}
+.svc:hover .ring,.svc.active .ring,.mode:hover .ring,.mode.active .ring{opacity:1}
 @keyframes ringSpin{to{--ang:360deg}}
-.svc .spark{position:absolute;z-index:5;width:9px;height:9px;pointer-events:none;border-radius:50%;
+.svc .spark,.mode .spark{position:absolute;z-index:5;width:9px;height:9px;pointer-events:none;border-radius:50%;
   background:radial-gradient(circle,#fff 0 30%,var(--sc2,#7C9BFF) 60%,transparent 70%);box-shadow:0 0 14px 2px var(--sc2,#7C9BFF);
   animation:sparkUp 2s ease-in-out forwards}
 @keyframes sparkUp{0%{opacity:0;transform:translate(0,0) scale(.3)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0),-120px) scale(1.1)}}
