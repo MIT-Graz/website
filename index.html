@@ -134,7 +134,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgroun
 .hero h1#h3d .to{background:none;animation:none;color:inherit;transform-style:preserve-3d}
 @keyframes flipIn{to{opacity:1;transform:translateZ(var(--z,0px))}}
 .hero .devices{display:none}
-@media (max-width:759px){.hero{padding-bottom:290px}}
+@media (max-width:759px){.hero{padding-bottom:90px}.hero .facts{text-shadow:0 1px 10px rgba(7,16,31,.95),0 0 3px rgba(7,16,31,.9)}}
 .hero{min-height:clamp(560px,82vh,760px);display:flex;align-items:center}
 .hero .hero-grid{width:100%}
 .hero .lead{text-shadow:0 1px 14px rgba(7,16,31,.95),0 0 4px rgba(7,16,31,.8);font-size:clamp(17px,1.6vw,19px);color:var(--stage-muted);max-width:50ch;margin-top:22px}
@@ -923,11 +923,13 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   (function(){
   var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches, reduce=false;
   var cv=document.getElementById('net'), ctx=cv.getContext('2d'), W,H,dpr,stars=[],bg=[],shoot=[],neb=null,
-      mT={x:0,y:0},mC={x:0,y:0},glow=null,gx=null,GS=6,rot=0,last=performance.now(),nextShoot=1500,vis=true,spr={},nodesP=[],links=[],packets=[],nextPkt=0,R0=300;
+      mT={x:0,y:0},mC={x:0,y:0},gAnchor=0,glow=null,gx=null,GS=6,rot=0,last=performance.now(),nextShoot=1500,vis=true,spr={},nodesP=[],links=[],packets=[],nextPkt=0,R0=300;
   function gauss(){return (Math.random()+Math.random()+Math.random()-1.5)/1.5}
   function size(){
     dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-    var small=W<760, N=small?1300:2800, R=Math.max(W,H)*(small?.6:.52);
+    var ab=document.querySelector('.hero .ctas .btn-primary'),cr=cv.getBoundingClientRect();
+    gAnchor=ab?(ab.getBoundingClientRect().bottom-cr.top+70):H*.6;
+    var small=W<760, N=small?1300:2800, R=(small?W*.95:Math.max(W,H)*.52);
     R0=R;
     ['124,155,255','63,209,154','176,140,255','230,240,255','255,232,200'].forEach(function(c){['0','1'].forEach(function(ch){
       var sc2=document.createElement('canvas');sc2.width=sc2.height=24;var g2=sc2.getContext('2d');
@@ -958,7 +960,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     var dt=Math.min(50,now-last);last=now;
     mC.x+=(mT.x-mC.x)*.02;mC.y+=(mT.y-mC.y)*.02;
     rot+=dt*.00008*(rm?.6:1);
-    var small=W<760, cxp=W*(small?.5:.7)+mC.x*10, cyp=(small?H-150:H*.42)+mC.y*6,
+    var small=W<760, cxp=W*(small?.5:.7)+mC.x*10, cyp=(small?gAnchor:H*.42)+mC.y*6,
         tilt=.95+mC.y*.06, yaw=-.35+mC.x*.08, ct=Math.cos(tilt), st=Math.sin(tilt), cyw=Math.cos(yaw), syw=Math.sin(yaw), F=Math.max(W,H)*1.1,
         tsec=now/1000;
     ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,W,H);
