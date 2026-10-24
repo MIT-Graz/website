@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_AT">
 <meta property="og:site_name" content="M-iT Solution">
-<meta property="og:title" content="M-iT Solution – IT-Support Graz | Von IT-Problemen zu IT-Lösungen">
+<meta property="og:title" content="M-iT Solution – Professioneller IT-Support vor Ort &amp; remote">
 <meta property="og:description" content="IT-Support in Graz für Software, Geräte-Einrichtung, Sicherheit und Web-Design. Per Fernwartung oder vor Ort in Graz und Umgebung.">
 <meta property="og:url" content="https://m-it-solution.com/">
 <meta property="og:image" content="https://m-it-solution.com/img/og-image.jpg">
@@ -110,7 +110,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgroun
 /* ---------- Hero (dark stage with animated network + devices) ---------- */
 .stage{background:var(--stage);color:var(--stage-ink);position:relative;overflow:hidden}
 .hero{padding-block:clamp(48px,7vw,88px) clamp(64px,8vw,110px)}
-#net{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.9}
+#net{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:1}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 70% at 78% 45%,rgba(30,79,216,.35),transparent 70%),radial-gradient(40% 50% at 10% 100%,rgba(63,209,154,.12),transparent 70%)}
 .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,4vw,56px);align-items:center}
 @media (max-width:960px){.hero-grid{grid-template-columns:1fr}}
@@ -123,7 +123,20 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgroun
 @keyframes strike{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .hero h1 .to{background:linear-gradient(90deg,#7C9BFF,#3FD19A,#7C9BFF);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;animation:flow 6s linear infinite}
 @keyframes flow{to{background-position:-200% 0}}
-.hero .lead{font-size:clamp(17px,1.6vw,19px);color:var(--stage-muted);max-width:50ch;margin-top:22px}
+/* 3D headline */
+.hero h1#h3d{perspective:900px;transform-style:preserve-3d;will-change:transform;--sx:0;--sy:1}
+.hero h1 .w{display:inline-block;white-space:nowrap;transform-style:preserve-3d}
+.hero h1 .ch,.hero h1 .tw{display:inline-block;opacity:0;transform-origin:50% 100%;transform:translateY(.45em) rotateX(-95deg);
+  animation:flipIn .95s cubic-bezier(.2,.9,.25,1.12) forwards;animation-delay:calc(var(--i)*32ms + .25s)}
+.hero h1 .ch{text-shadow:calc(var(--sx)*1px) calc(var(--sy)*1px) 0 #2a3d66,calc(var(--sx)*2px) calc(var(--sy)*2px) 0 #223256,calc(var(--sx)*3px) calc(var(--sy)*3px) 0 #1b2847,calc(var(--sx)*4px) calc(var(--sy)*4px) 0 #151f39,calc(var(--sx)*5px) calc(var(--sy)*5px) 0 #10182d,calc(var(--sx)*6px) calc(var(--sy)*6px) 0 #0c1323,calc(var(--sx)*12px) calc(var(--sy)*16px) 26px rgba(0,0,0,.55)}
+.hero h1 .tw{--z:46px;background:linear-gradient(90deg,#7C9BFF,#3FD19A,#7C9BFF);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 18px rgba(124,155,255,.35));animation:flipIn .95s cubic-bezier(.2,.9,.25,1.12) forwards,flow 6s linear infinite;animation-delay:calc(var(--i)*32ms + .25s),0s}
+.hero h1#h3d .to{background:none;animation:none;color:inherit;transform-style:preserve-3d}
+@keyframes flipIn{to{opacity:1;transform:translateZ(var(--z,0px))}}
+.hero .devices{display:none}
+.hero{min-height:clamp(560px,82vh,760px);display:flex;align-items:center}
+.hero .hero-grid{width:100%}
+.hero .lead{text-shadow:0 1px 14px rgba(7,16,31,.95),0 0 4px rgba(7,16,31,.8);font-size:clamp(17px,1.6vw,19px);color:var(--stage-muted);max-width:50ch;margin-top:22px}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:36px;font-size:14px;color:var(--stage-muted)}
 .facts span{display:inline-flex;align-items:center;gap:8px}
@@ -211,17 +224,19 @@ section.block{padding-block:clamp(64px,9vw,112px)}
 @media (max-width:1000px){.services{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.services{grid-template-columns:1fr}}
 .svc{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px 24px 30px;display:flex;flex-direction:column;gap:14px;
-  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0));transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease}
-.svc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),var(--accent-soft),transparent 60%);opacity:0;transition:opacity .35s}
-.svc:hover{--ty:-6px;box-shadow:var(--shadow);border-color:var(--accent)}
+  transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0)) scale(var(--sc,1));transition:transform .55s cubic-bezier(.3,0,.2,1),box-shadow .55s ease,border-color .45s ease}
+.svc::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),var(--accent-soft),transparent 60%);opacity:0;transition:opacity .45s}
+.svc:hover{--ty:-12px;--sc:1.04;z-index:2;box-shadow:0 34px 70px -24px rgba(59,91,219,.5),0 12px 30px -16px rgba(13,23,38,.35);border-color:transparent}
 .svc:hover::before{opacity:1}
 .svc > *{position:relative}
 .svc .ic{width:48px;height:48px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;transition:transform .45s cubic-bezier(.3,1.6,.5,1),background .3s,color .3s}
-.svc:hover .ic{transform:rotate(-10deg) scale(1.12);background:var(--accent);color:var(--accent-ink)}
+.svc .ic{transform:translate(calc(var(--px,0)*10px),calc(var(--py,0)*10px));transition:transform .55s cubic-bezier(.3,0,.2,1.35),background .45s,color .45s,box-shadow .45s}
+.svc:hover .ic{transform:translate(calc(var(--px,0)*10px),calc(var(--py,0)*10px - 4px)) rotate(-10deg) scale(1.15);background:var(--accent);color:var(--accent-ink);
+  box-shadow:calc(var(--px,0)*-8px) calc(14px - var(--py,0)*6px) 24px -8px rgba(13,23,38,.55)}
 .svc h3{font-size:22px;font-weight:700}
 .svc p{color:var(--muted);font-size:15px}
 .svc ul{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:8px;font-size:14px}
-.svc li{display:flex;gap:8px;align-items:baseline;transition:transform .3s}
+.svc li{display:flex;gap:8px;align-items:baseline;transition:transform .45s cubic-bezier(.3,0,.2,1)}
 .svc li::before{content:"";flex:none;width:6px;height:6px;border-radius:2px;background:var(--accent);transform:translateY(-2px)}
 .svc:hover li{transform:translateX(4px)}
 .svc:hover li:nth-child(2){transition-delay:.05s}.svc:hover li:nth-child(3){transition-delay:.1s}
@@ -372,7 +387,29 @@ legend{font-weight:600;font-size:14px;margin-bottom:8px}
 .svc .ph{margin:0 -24px 6px;height:170px;overflow:hidden;position:relative;border-bottom:1px solid var(--line)}
 .svc .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .6s}
 .svc .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,16,31,.35))}
-.svc:hover .ph img{transform:scale(1.08)}
+.svc .ph img{transform:scale(var(--ps,1.08)) translate(calc(var(--px,0)*-10px),calc(var(--py,0)*-10px));transition:transform 1s cubic-bezier(.3,0,.2,1),filter .8s}
+.svc:hover .ph img{--ps:1.24;filter:saturate(1.15) brightness(1.05)}
+.svc h3,.svc p,.svc ul{transform:translate(calc(var(--px,0)*3px),calc(var(--py,0)*3px));transition:transform .55s cubic-bezier(.3,0,.2,1)}
+.svc h3{transform:translate(calc(var(--px,0)*5px),calc(var(--py,0)*5px))}
+.svc::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:inherit;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 48%,transparent 62%);background-size:250% 250%;
+  background-position:calc(50% + var(--px,0)*40%) calc(50% + var(--py,0)*40%);opacity:0;transition:opacity .45s;mix-blend-mode:soft-light}
+.svc:hover::after{opacity:1}
+.js .svc.reveal.pre{transform:perspective(900px) rotateX(24deg) translateY(44px) scale(.95);opacity:.001}
+.svc.reveal{transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .7s ease,box-shadow .35s ease,border-color .35s ease}
+.svc.reveal.live{transition:transform .55s cubic-bezier(.3,0,.2,1),box-shadow .55s ease,border-color .45s ease}
+/* magic: rotating light border + sparkles */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+.svc .ring{position:absolute;inset:0;border-radius:inherit;padding:2.5px;pointer-events:none;z-index:4;
+  background:conic-gradient(from var(--ang),transparent 0 55%,#7C9BFF 70%,#3FD19A 82%,#B08CFF 92%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .5s ease;animation:ringSpin 5s linear infinite}
+.svc:hover .ring{opacity:1}
+@keyframes ringSpin{to{--ang:360deg}}
+.svc .spark{position:absolute;z-index:5;width:9px;height:9px;pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle,#fff 0 30%,var(--sc2,#7C9BFF) 60%,transparent 70%);box-shadow:0 0 14px 2px var(--sc2,#7C9BFF);
+  animation:sparkUp 2s ease-in-out forwards}
+@keyframes sparkUp{0%{opacity:0;transform:translate(0,0) scale(.3)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0),-120px) scale(1.1)}}
 .svc .ic{margin-top:-40px;position:relative;z-index:2;box-shadow:0 8px 20px -8px rgba(13,23,38,.4);background:var(--surface);border:1px solid var(--line)}
 .svc img[src*="webdesign"]{object-position:50% 20%}
 .mode{min-height:300px;color:#fff;border:0;align-content:end;background:#07101F}
@@ -385,6 +422,24 @@ legend{font-weight:600;font-size:14px;margin-bottom:8px}
 .mode:hover{border-color:transparent;box-shadow:0 24px 50px -20px rgba(13,23,38,.6)}
 .mode img[src*="router"]{object-position:70% 50%}
 .mode img[src*="remote"]{object-position:50% 60%}
+/* 3D + magic for the two mode cards */
+.modes .mode{transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0)) scale(var(--sc,1));
+  transition:transform .55s cubic-bezier(.3,0,.2,1),box-shadow .55s ease,opacity .7s ease}
+.modes .mode:hover{--ty:-10px;--sc:1.025;z-index:2;box-shadow:0 34px 70px -24px rgba(59,91,219,.55),0 14px 30px -16px rgba(13,23,38,.5)}
+.modes .mode .mode-bg{transform:scale(var(--ps,1.06)) translate(calc(var(--px,0)*-12px),calc(var(--py,0)*-12px));transition:transform 1s cubic-bezier(.3,0,.2,1),filter .8s ease}
+.modes .mode:hover .mode-bg{--ps:1.16;filter:saturate(1.15) brightness(1.08)}
+.modes .mode > .tag,.modes .mode > h3,.modes .mode > p{transform:translate(calc(var(--px,0)*6px),calc(var(--py,0)*6px));transition:transform .55s cubic-bezier(.3,0,.2,1)}
+.modes .mode > h3{transform:translate(calc(var(--px,0)*9px),calc(var(--py,0)*9px))}
+.modes .mode .ring{position:absolute;z-index:4}
+.modes .mode .spark{position:absolute;z-index:5}
+.js .modes .mode.reveal.pre{transform:perspective(1100px) rotateX(20deg) translateY(44px) scale(.96);opacity:.001}
+@media (prefers-reduced-motion:reduce){
+  .modes .mode{transition:transform .55s cubic-bezier(.3,0,.2,1),box-shadow .55s ease!important}
+  .modes .mode .mode-bg{transition:transform 1s cubic-bezier(.3,0,.2,1),filter .8s ease!important}
+  .modes .mode > .tag,.modes .mode > h3,.modes .mode > p{transition:transform .55s cubic-bezier(.3,0,.2,1)!important}
+  .modes .mode .ring{transition:opacity .5s ease!important;animation:ringSpin 5s linear infinite!important}
+  .modes .mode .spark{animation:sparkUp 2s ease-in-out forwards!important}
+}
 .svc img[src*="devices"]{object-position:50% 60%}
 .film-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;z-index:0}
 .film::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--stage) 0%,rgba(7,16,31,.6) 40%,var(--stage) 100%)}
@@ -394,10 +449,23 @@ legend{font-weight:600;font-size:14px;margin-bottom:8px}
 .reveal{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .js .reveal.pre{transform:translateY(24px)}
 
+
+/* Service cards keep their gentle, user-triggered hover even with reduced motion */
+@media (prefers-reduced-motion:reduce){
+  .services .svc{transition:transform .55s cubic-bezier(.3,0,.2,1),box-shadow .55s ease,border-color .45s ease!important}
+  .services .svc::before,.services .svc::after{transition:opacity .45s ease!important}
+  .services .svc .ph img{transition:transform 1s cubic-bezier(.3,0,.2,1),filter .8s ease!important}
+  .services .svc h3,.services .svc p,.services .svc ul{transition:transform .55s cubic-bezier(.3,0,.2,1)!important}
+  .services .svc li{transition:transform .45s cubic-bezier(.3,0,.2,1)!important}
+  .services .svc .ic{transition:transform .55s cubic-bezier(.3,0,.2,1.35),background .45s,color .45s,box-shadow .45s!important}
+  .services .svc .ring{transition:opacity .5s ease!important;animation:ringSpin 5s linear infinite!important}
+  .services .svc .spark{animation:sparkUp 2s ease-in-out forwards!important}
+}
 /* ---------- WhatsApp floating button ---------- */
 .wa-fab{position:fixed;bottom:24px;right:24px;z-index:100;display:flex;align-items:center;gap:0;cursor:pointer;text-decoration:none}
 .wa-fab .wa-label{background:#fff;color:#0D1726;font:600 14px/1 var(--body);padding:10px 16px;border-radius:999px 0 0 999px;box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:0;transform:translateX(12px);transition:opacity .25s ease,transform .25s ease;white-space:nowrap;pointer-events:none}
-.wa-fab:hover .wa-label,.wa-fab:focus-visible .wa-label{opacity:1;transform:none}
+.wa-fab,.wa-fab .wa-label{pointer-events:none}.wa-fab .wa-ic{pointer-events:auto}
+@media (hover:hover){.wa-fab:has(.wa-ic:hover) .wa-label{opacity:1;transform:none}}
 .wa-fab .wa-ic{width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 4px 20px rgba(37,211,102,.5);flex:none;transition:transform .3s cubic-bezier(.3,1.6,.5,1),box-shadow .3s ease}
 .wa-fab:hover .wa-ic{transform:scale(1.08);box-shadow:0 8px 28px rgba(37,211,102,.65)}
 .wa-fab::before{content:"";position:absolute;inset:0;border-radius:50%;background:#25D366;animation:waping 2.4s ease-out infinite;z-index:-1;right:0;left:calc(100% - 56px)}
@@ -413,6 +481,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .hero h1 .from::after{transform:none}
+  .hero h1 .ch,.hero h1 .tw{opacity:1!important;transform:none!important}
   .scene .code b,.done-ring svg circle,.done-ring svg path{opacity:1;transform:none;stroke-dashoffset:0}
   .task .bar i{width:100%}
   .toast{transform:none;opacity:1}
@@ -447,7 +516,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     <div class="wrap hero-grid">
       <div>
         <span class="eyebrow"><span class="live-dot"></span>IT-Support · Vor Ort &amp; Remote</span>
-        <h1>Von <span class="from">IT-Problemen</span> zu <span class="to">IT-Lösungen</span>.</h1>
+        <h1 id="h3d">Professioneller IT-Support <span class="to">vor Ort &amp; remote.</span></h1>
         <p class="lead">Ihr IT-Partner in Graz für Software, Geräte-Einrichtung, IT-Sicherheit und Web-Design. Wir finden die Ursache, beheben das Problem und erklären Ihnen verständlich, was wir gemacht haben.</p>
         <div class="ctas">
           <a class="btn btn-primary magnetic" href="#kontakt">Problem schildern
@@ -523,8 +592,8 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>PC-Einrichtung</span><span>Laptop-Support</span><span>Smartphone-Einrichtung</span><span>WLAN &amp; Netzwerk</span><span>Virenschutz</span><span>Datensicherung</span><span>Microsoft 365</span><span>Websites</span><span>Drucker</span><span>Fernwartung</span>
-      <span>PC-Einrichtung</span><span>Laptop-Support</span><span>Smartphone-Einrichtung</span><span>WLAN &amp; Netzwerk</span><span>Virenschutz</span><span>Datensicherung</span><span>Microsoft 365</span><span>Websites</span><span>Drucker</span><span>Fernwartung</span>
+      <span>PC-Einrichtung</span><span>Laptop-Support</span><span>Smartphone-Einrichtung</span><span>WLAN &amp; Netzwerk</span><span>Virenschutz</span><span>Datensicherung</span><span>Websites</span><span>Drucker</span><span>Fernwartung</span>
+      <span>PC-Einrichtung</span><span>Laptop-Support</span><span>Smartphone-Einrichtung</span><span>WLAN &amp; Netzwerk</span><span>Virenschutz</span><span>Datensicherung</span><span>Websites</span><span>Drucker</span><span>Fernwartung</span>
     </div>
   </div>
 
@@ -536,16 +605,16 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
           <span class="eyebrow">Leistungen</span>
           <h2>Alles rund um Ihre IT aus einer Hand.</h2>
         </div>
-        <p>Vom einzelnen PC bis zum Firmennetzwerk: Wir kümmern uns um Störungen, Einrichtung, Schutz und Ihren Auftritt im Web.</p>
+        <p>Ob PC, Laptop oder Smartphone: Wir kümmern uns um Störungen, Einrichtung, Schutz und Ihren Auftritt im Web.</p>
       </div>
 
       <div class="services">
         <article class="svc tilt reveal">
-          <figure class="ph"><img src="img/software.jpg" alt="Laptop mit Programmcode auf einem Schreibtisch" loading="lazy" width="1200" height="800"></figure>
+          <figure class="ph"><img src="img/software-pro.jpg" alt="Programm-Symbole, Installation und Updates auf einem Bildschirm" loading="lazy" width="1200" height="800"></figure>
           <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 9l2.5 2L7 13M12 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
           <h3>Software</h3>
           <p>Fehler, Abstürze und langsame Systeme. Wir installieren, konfigurieren und halten Ihre Programme aktuell.</p>
-          <ul><li>Windows- &amp; Mac-Support</li><li>E-Mail &amp; Microsoft 365</li><li>Updates &amp; Neuinstallation</li></ul>
+          <ul><li>Windows-Support</li><li>Programme installieren &amp; einrichten</li><li>Updates &amp; Neuinstallation</li></ul>
         </article>
         <article class="svc tilt reveal">
           <figure class="ph"><img src="img/devices.jpg" alt="Aufgeräumter Arbeitsplatz mit Monitor, Tastatur und Zubehör" loading="lazy" width="1200" height="800"></figure>
@@ -571,13 +640,13 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
       </div>
 
       <div class="modes">
-        <div class="mode reveal">
+        <div class="mode tilt reveal">
           <span class="tag">Remote-Support</span>
           <h3>Schnelle Hilfe aus der Ferne</h3>
           <p>Viele Probleme lösen wir sicher per Fernwartung, ohne Anfahrt und oft noch am selben Tag.</p>
           <img class="mode-bg" src="img/remote3.jpg" alt="" loading="lazy">
         </div>
-        <div class="mode reveal">
+        <div class="mode tilt reveal">
           <span class="tag">Vor-Ort-Service</span>
           <h3>Persönlich bei Ihnen</h3>
           <p>Wenn neue Geräte eingerichtet oder das WLAN konfiguriert werden muss, kommen wir direkt zu Ihnen.</p>
@@ -807,17 +876,30 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   links.addEventListener('click',function(e){if(e.target.tagName==='A'){links.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}});
 
   /* Magnetic buttons */
-  if(fine&&!reduce){
-    document.querySelectorAll('.magnetic').forEach(function(b){
+  if(fine){
+    if(!reduce) document.querySelectorAll('.magnetic').forEach(function(b){
       b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();var x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;b.style.transform='translate('+x*.18+'px,'+y*.3+'px)'});
       b.addEventListener('pointerleave',function(){b.style.transform=''});
     });
     /* Tilt cards */
     document.querySelectorAll('.tilt').forEach(function(c){
       c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();var px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
-        c.style.setProperty('--ry',((px-.5)*10)+'deg');c.style.setProperty('--rx',((.5-py)*10)+'deg');
+        c.style.setProperty('--ry',((px-.5)*12)+'deg');c.style.setProperty('--rx',((.5-py)*12)+'deg');
+        c.style.setProperty('--px',((px-.5)*2).toFixed(3));c.style.setProperty('--py',((py-.5)*2).toFixed(3));
         c.style.setProperty('--mx',(px*100)+'%');c.style.setProperty('--my',(py*100)+'%')});
-      c.addEventListener('pointerleave',function(){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')});
+      c.addEventListener('pointerleave',function(){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg');c.style.setProperty('--px','0');c.style.setProperty('--py','0')});
+      var ring=document.createElement('span');ring.className='ring';ring.setAttribute('aria-hidden','true');c.appendChild(ring);
+      var spT=null,cols=['#7C9BFF','#3FD19A','#B08CFF','#FFFFFF'];
+      function spark(){var ic=c.querySelector('.ic')||c.querySelector('h3');if(!ic)return;var cr=c.getBoundingClientRect(),ir=ic.getBoundingClientRect();
+        var sp=document.createElement('span');sp.className='spark';sp.setAttribute('aria-hidden','true');
+        sp.style.left=(ir.left-cr.left-14+Math.random()*(ir.width+28))+'px';sp.style.top=(ir.top-cr.top-6+Math.random()*ir.height*.4)+'px';
+        sp.style.setProperty('--dx',((Math.random()-.5)*70)+'px');sp.style.setProperty('--sc2',cols[Math.random()*cols.length|0]);
+        c.appendChild(sp);setTimeout(function(){sp.remove()},2100)}
+      {
+        c.addEventListener('pointerenter',function(e){if(e.pointerType!=='mouse')return;spark();clearInterval(spT);spT=setInterval(spark,240)});
+        c.addEventListener('pointerleave',function(){clearInterval(spT)});
+      }
+      c.addEventListener('transitionend',function(e){if(e.target===c&&e.propertyName==='transform'&&!c.classList.contains('pre'))c.classList.add('live')});
     });
     /* Device parallax */
     var dev=document.getElementById('devices'), hero=document.querySelector('.hero');
@@ -836,20 +918,112 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     els.forEach(function(el){io.observe(el)});
   }
 
-  /* Network background canvas */
-  var cv=document.getElementById('net'), ctx=cv.getContext('2d'), W,H,dpr,pts=[],mouse={x:-999,y:-999};
-  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-    var n=Math.round(Math.min(90,W*H/14000));pts=[];for(var i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.6+.6})}
-  function draw(){ctx.clearRect(0,0,W,H);
-    for(var i=0;i<pts.length;i++){var p=pts[i];
-      if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
-      for(var j=i+1;j<pts.length;j++){var q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;if(d<13000){ctx.strokeStyle='rgba(124,155,255,'+(.16*(1-d/13000))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}}
-      var mx=p.x-mouse.x,my=p.y-mouse.y,md=mx*mx+my*my;if(md<26000){ctx.strokeStyle='rgba(63,209,154,'+(.45*(1-md/26000))+')';ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}
-      ctx.fillStyle='rgba(180,198,255,.7)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
-    if(!reduce)requestAnimationFrame(draw)}
-  size();draw();window.addEventListener('resize',function(){size();if(reduce)draw()});
-  cv.parentElement.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
-  cv.parentElement.addEventListener('pointerleave',function(){mouse.x=mouse.y=-999});
+  /* Galaxy background canvas */
+  (function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches, reduce=false;
+  var cv=document.getElementById('net'), ctx=cv.getContext('2d'), W,H,dpr,stars=[],bg=[],shoot=[],neb=null,
+      mT={x:0,y:0},mC={x:0,y:0},glow=null,gx=null,GS=6,rot=0,last=performance.now(),nextShoot=1500,vis=true,spr={},nodesP=[],links=[],packets=[],nextPkt=0,R0=300;
+  function gauss(){return (Math.random()+Math.random()+Math.random()-1.5)/1.5}
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    var small=W<760, N=small?1300:2800, R=Math.max(W,H)*(small?.7:.52);
+    R0=R;
+    ['124,155,255','63,209,154','176,140,255','230,240,255','255,232,200'].forEach(function(c){['0','1'].forEach(function(ch){
+      var sc2=document.createElement('canvas');sc2.width=sc2.height=24;var g2=sc2.getContext('2d');
+      g2.font='600 17px "JetBrains Mono",ui-monospace,monospace';g2.textAlign='center';g2.textBaseline='middle';
+      g2.shadowColor='rgba('+c+',.9)';g2.shadowBlur=6;g2.fillStyle='rgba('+c+',1)';g2.fillText(ch,12,13);spr[c+ch]=sc2})});
+    stars=[];
+    for(var i=0;i<N;i++){
+      var arm=i%3, t=(i%10===9)?Math.random()*.12:Math.pow(Math.random(),1.25), r=t*R*(1+gauss()*.08)+6,
+          a=(i%10<1||t<.1)?Math.random()*6.283:arm*2.0944+t*3.8+gauss()*(.5-.28*t),
+          k=Math.random(), col;
+      if(t<.16) col=[255,232,200];                       // warmer core
+      else if(k<.5) col=[124,155,255];                   // brand blue
+      else if(k<.78) col=[63,209,154];                   // brand green
+      else if(k<.9) col=[176,140,255];                   // violet
+      else col=[230,240,255];
+      stars.push({k:(t>.12&&i%23===0)?2:(t>.08&&Math.random()<(small?.1:.14))?1:0,ch:Math.random()<.5?'0':'1',cs:col.join(','),r:r,a:a,z:gauss()*R*(.022*(1-t)+.008),g:(i%7===0),s:Math.random()*1.7+.6+(t<.1?.8:0),c:col,tw:Math.random()*6.283,sp:.6+Math.random()*.8});
+    }
+    glow=document.createElement('canvas');glow.width=Math.ceil(W/GS);glow.height=Math.ceil(H/GS);gx=glow.getContext('2d');
+    bg=[];var nb=Math.round(W*H/5200);
+    for(var j=0;j<nb;j++) bg.push({x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.1+.2,d:Math.random()*.8+.2,tw:Math.random()*6.283});
+    // static nebula layer
+    neb=document.createElement('canvas');neb.width=W;neb.height=H;var n=neb.getContext('2d');
+    [[.6,.45,.6,'124,155,255',.22],[.35,.75,.5,'63,209,154',.09],[.9,.8,.4,'176,140,255',.12],[.15,.2,.35,'124,155,255',.07]].forEach(function(b){
+      var g=n.createRadialGradient(W*b[0],H*b[1],0,W*b[0],H*b[1],Math.max(W,H)*b[2]);
+      g.addColorStop(0,'rgba('+b[3]+','+b[4]+')');g.addColorStop(1,'rgba('+b[3]+',0)');n.fillStyle=g;n.fillRect(0,0,W,H)});
+  }
+  function frame(now){
+    var dt=Math.min(50,now-last);last=now;
+    mC.x+=(mT.x-mC.x)*.02;mC.y+=(mT.y-mC.y)*.02;
+    rot+=dt*.00008*(rm?.6:1);
+    var small=W<760, cxp=W*(small?.9:.7)+mC.x*10, cyp=H*(small?1.02:.42)+mC.y*6,
+        tilt=.95+mC.y*.06, yaw=-.35+mC.x*.08, ct=Math.cos(tilt), st=Math.sin(tilt), cyw=Math.cos(yaw), syw=Math.sin(yaw), F=Math.max(W,H)*1.1,
+        tsec=now/1000;
+    ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,W,H);
+    if(neb){ctx.globalAlpha=.85+.15*Math.sin(tsec*.4);ctx.drawImage(neb,mC.x*-14,mC.y*-10);ctx.globalAlpha=1}
+    // background stars (parallax + twinkle)
+    for(var j=0;j<bg.length;j++){var b=bg[j],al=.25+.45*(.5+.5*Math.sin(tsec*1.6*b.d+b.tw));
+      ctx.fillStyle='rgba(220,230,255,'+al.toFixed(3)+')';ctx.fillRect(b.x-mC.x*10*b.d,b.y-mC.y*8*b.d,b.s,b.s)}
+    ctx.globalCompositeOperation='lighter';
+    // core glow
+    var cg=ctx.createRadialGradient(cxp,cyp,0,cxp,cyp,Math.max(W,H)*.2);
+    cg.addColorStop(0,'rgba(255,236,210,.6)');cg.addColorStop(.22,'rgba(160,180,255,.22)');cg.addColorStop(1,'rgba(124,155,255,0)');
+    ctx.fillStyle=cg;ctx.fillRect(0,0,W,H);
+    if(gx){gx.globalCompositeOperation='source-over';gx.clearRect(0,0,glow.width,glow.height);gx.globalCompositeOperation='lighter'}
+    nodesP.length=0;
+    // core orbit rings (data orbits)
+    [.09,.15,.22].forEach(function(f,ri){var rr=R0*f;ctx.beginPath();for(var s2=0;s2<=72;s2++){var an=s2/72*6.283,xx=Math.cos(an)*rr,yy=Math.sin(an)*rr,x1=xx*cyw-yy*syw,y1=xx*syw+yy*cyw,y2=y1*ct,z2=y1*st,sc2=F/(F+z2);s2?ctx.lineTo(cxp+x1*sc2,cyp+y2*sc2):ctx.moveTo(cxp+x1*sc2,cyp+y2*sc2)}
+      ctx.setLineDash(ri===1?[2,7]:[10,14]);ctx.lineDashOffset=-(tsec*(ri%2?10:-7));ctx.strokeStyle=ri===1?'rgba(63,209,154,.45)':'rgba(124,155,255,.35)';ctx.lineWidth=1.2;ctx.stroke()});ctx.setLineDash([]);
+    // galaxy stars
+    for(var i=0;i<stars.length;i++){var p=stars[i],
+        ang=p.a+rot*(220/(p.r+60)+.6),
+        x=Math.cos(ang)*p.r, y=Math.sin(ang)*p.r, z=p.z,
+        x1=x*cyw-y*syw, y1=x*syw+y*cyw,
+        y2=y1*ct-z*st, z2=y1*st+z*ct,
+        sc=F/(F+z2), px=cxp+x1*sc, py=cyp+y2*sc;
+      if(px<-4||px>W+4||py<-4||py>H+4) continue;
+      var tw=.65+.35*Math.sin(tsec*p.sp*2+p.tw), al=Math.min(1,(.5+.6*sc*sc)*tw), sz=p.s*sc;
+      ctx.fillStyle='rgba('+p.c[0]+','+p.c[1]+','+p.c[2]+','+al.toFixed(3)+')';
+      if(p.k===1){var gs=(8+sz*3);ctx.globalAlpha=al*.9;ctx.drawImage(spr[p.cs+p.ch],px-gs/2,py-gs/2,gs,gs);ctx.globalAlpha=1;
+        if(Math.random()<.002)p.ch=p.ch==='0'?'1':'0';}
+      else if(p.k===2){nodesP.push(px,py,sc);ctx.strokeStyle='rgba('+p.cs+','+(al*.9).toFixed(3)+')';ctx.lineWidth=1;var ns=2.2+sc*1.6;
+        ctx.strokeRect(px-ns,py-ns,ns*2,ns*2);ctx.fillRect(px-1.2,py-1.2,2.4,2.4)}
+      else if(sz>1.5){ctx.beginPath();ctx.arc(px,py,sz*.6,0,6.283);ctx.fill()} else ctx.fillRect(px,py,sz,sz);
+      if(p.g&&gx){gx.fillStyle='rgba('+p.c[0]+','+p.c[1]+','+p.c[2]+','+(al*.7).toFixed(3)+')';gx.fillRect(px/GS-1,py/GS-1,2.4,2.4)}
+    }
+    // network links between nodes
+    links.length=0;var LD=small?90:125,LD2=LD*LD;ctx.lineWidth=.8;
+    for(var u=0;u<nodesP.length;u+=3)for(var v=u+3;v<nodesP.length;v+=3){var ddx=nodesP[u]-nodesP[v],ddy=nodesP[u+1]-nodesP[v+1],dd=ddx*ddx+ddy*ddy;
+      if(dd<LD2){links.push(u,v);ctx.strokeStyle='rgba(124,155,255,'+(.32*(1-dd/LD2)).toFixed(3)+')';ctx.beginPath();ctx.moveTo(nodesP[u],nodesP[u+1]);ctx.lineTo(nodesP[v],nodesP[v+1]);ctx.stroke()}}
+    // data packets travelling along links
+    if(!reduce){nextPkt-=dt;if(nextPkt<0&&links.length){nextPkt=small?520:300;var li=(Math.random()*links.length/2|0)*2,fw=Math.random()<.5;packets.push({a:fw?links[li]:links[li+1],b:fw?links[li+1]:links[li],t:0,c:Math.random()<.6?'63,209,154':'124,155,255'})}}
+    for(var q2=packets.length-1;q2>=0;q2--){var pk=packets[q2];pk.t+=dt/1600;
+      if(pk.t>=1||pk.a>=nodesP.length||pk.b>=nodesP.length){packets.splice(q2,1);continue}
+      var ax=nodesP[pk.a],ay=nodesP[pk.a+1],bx=nodesP[pk.b],by=nodesP[pk.b+1],e=pk.t<.5?2*pk.t*pk.t:1-Math.pow(-2*pk.t+2,2)/2,
+          kx=ax+(bx-ax)*e,ky=ay+(by-ay)*e,tx2=ax+(bx-ax)*Math.max(0,e-.18),ty2=ay+(by-ay)*Math.max(0,e-.18);
+      var lg=ctx.createLinearGradient(tx2,ty2,kx,ky);lg.addColorStop(0,'rgba('+pk.c+',0)');lg.addColorStop(1,'rgba('+pk.c+',.95)');
+      ctx.strokeStyle=lg;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(tx2,ty2);ctx.lineTo(kx,ky);ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,.95)';ctx.beginPath();ctx.arc(kx,ky,1.8,0,6.283);ctx.fill()}
+    if(gx){ctx.imageSmoothingEnabled=true;ctx.globalAlpha=.7;ctx.filter='blur(9px)';ctx.drawImage(glow,0,0,W,H);ctx.filter='none';ctx.globalAlpha=1}
+    // shooting stars
+    if(!rm){nextShoot-=dt;if(nextShoot<0){nextShoot=6000+Math.random()*6000;
+      shoot.push({x:Math.random()*W*.8+W*.1,y:Math.random()*H*.35,vx:-(5+Math.random()*4),vy:2.4+Math.random()*2,life:1})}}
+    for(var q=shoot.length-1;q>=0;q--){var sh=shoot[q];sh.x+=sh.vx*dt/16;sh.y+=sh.vy*dt/16;sh.life-=dt/1100;
+      if(sh.life<=0){shoot.splice(q,1);continue}
+      var gr=ctx.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*14,sh.y-sh.vy*14);
+      gr.addColorStop(0,'rgba(255,255,255,'+(sh.life*.9).toFixed(3)+')');gr.addColorStop(1,'rgba(124,155,255,0)');
+      ctx.strokeStyle=gr;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(sh.x,sh.y);ctx.lineTo(sh.x-sh.vx*14,sh.y-sh.vy*14);ctx.stroke()}
+    ctx.globalCompositeOperation='source-over';
+  }
+  function loop(now){requestAnimationFrame(loop);if(vis)frame(now)}
+  size();
+  if(reduce) frame(performance.now()); else requestAnimationFrame(loop);
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(cv);
+  window.addEventListener('resize',function(){size();if(reduce)frame(performance.now())});
+  cv.parentElement.addEventListener('pointermove',function(e){if(e.pointerType!=='mouse')return;var r=cv.getBoundingClientRect();mT.x=(e.clientX-r.left)/r.width*2-1;mT.y=(e.clientY-r.top)/r.height*2-1});
+  cv.parentElement.addEventListener('pointerleave',function(){mT.x=mT.y=0});
+  })();
 
   /* Laptop: CPU chart + checklist loop */
   var cc=document.getElementById('cpu'), cx=cc.getContext('2d'), data=[];for(var k=0;k<40;k++)data.push(70+Math.random()*20);
@@ -936,11 +1110,21 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 /* Chat button */
 .cb-fab{position:fixed;bottom:24px;left:24px;z-index:100;display:flex;align-items:center;gap:0;cursor:pointer;border:none;background:none;padding:0;text-decoration:none}
 .cb-fab .cb-label{background:#fff;color:#0D1726;font:600 14px/1 var(--body);padding:10px 16px;border-radius:0 999px 999px 0;box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:0;transform:translateX(-12px);transition:opacity .25s ease,transform .25s ease;white-space:nowrap;pointer-events:none}
-.cb-fab:hover .cb-label,.cb-fab:focus-visible .cb-label{opacity:1;transform:none}
+.cb-fab,.cb-fab .cb-label,.cb-fab .cb-notif{pointer-events:none}.cb-fab .cb-ic{pointer-events:auto}
+@media (hover:hover){.cb-fab .cb-ic:hover ~ .cb-label{opacity:1;transform:none}}
 .cb-fab .cb-ic{width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 4px 20px var(--glow);flex:none;transition:transform .3s cubic-bezier(.3,1.6,.5,1),box-shadow .3s ease;order:-1}
 .cb-fab:hover .cb-ic{transform:scale(1.08);box-shadow:0 8px 28px var(--glow)}
-.cb-notif{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#F2A25A;color:#fff;font:700 11px/18px var(--mono);text-align:center;border:2px solid #fff;display:none}
-.cb-notif.show{display:block}
+.cb-notif{position:absolute;top:-3px;left:38px;right:auto;width:18px;height:18px;border-radius:50%;background:#F2A25A;color:#fff;font:700 11px/18px var(--mono);text-align:center;border:2px solid #fff;display:none}
+.cb-privacy{margin:0;padding:0 16px 8px;font:500 11px/1.4 var(--body);color:var(--muted)}.cb-privacy a{color:inherit}
+.cb-notif.show{display:block;animation:notifPop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes notifPop{from{transform:scale(0)}to{transform:scale(1)}}
+.bot-face{display:block;overflow:visible}
+.bot-eye{transform-box:fill-box;transform-origin:center;animation:botBlink 4.8s infinite}
+.bot-eyes{transition:transform .35s ease}
+.cb-fab:hover .bot-eyes{transform:translateX(2px)}
+.bot-ant{animation:botAnt 2.4s ease-in-out infinite}
+@keyframes botBlink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.12)}}
+@keyframes botAnt{0%,100%{opacity:1}50%{opacity:.35}}
 @media (max-width:560px){.cb-fab{bottom:16px;left:16px}.cb-label{display:none}}
 
 /* Chat window */
@@ -994,7 +1178,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 <!-- Chat FAB -->
 <button class="cb-fab" id="cbFab" aria-label="KI-Assistent öffnen" aria-expanded="false">
   <span class="cb-ic">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <svg class="bot-face" width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><line x1="24" y1="5" x2="24" y2="10" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle class="bot-ant" cx="24" cy="4.5" r="2.8" fill="#3FD19A"/><rect x="2.5" y="21" width="4.5" height="11" rx="2.2" fill="#fff" opacity=".85"/><rect x="41" y="21" width="4.5" height="11" rx="2.2" fill="#fff" opacity=".85"/><rect x="6.5" y="10" width="35" height="31" rx="12" fill="#fff"/><rect x="11" y="16" width="26" height="15" rx="7.5" fill="#0D1726"/><g class="bot-eyes"><ellipse class="bot-eye" cx="18.5" cy="23.5" rx="2.8" ry="3.6" fill="#6FE3FF"/><ellipse class="bot-eye" cx="29.5" cy="23.5" rx="2.8" ry="3.6" fill="#6FE3FF"/></g><path d="M19.5 35.2q4.5 3 9 0" fill="none" stroke="#3B5BDB" stroke-width="2.2" stroke-linecap="round"/></svg>
   </span>
   <span class="cb-label">KI-Assistent</span>
   <span class="cb-notif" id="cbNotif" aria-hidden="true">1</span>
@@ -1003,10 +1187,10 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 <!-- Chat Window -->
 <div class="cb-win" id="cbWin" role="dialog" aria-label="M-iT KI-Assistent" aria-modal="true">
   <div class="cb-head">
-    <span class="cb-av"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+    <span class="cb-av"><svg class="bot-face" width="30" height="30" viewBox="0 0 48 48" aria-hidden="true"><line x1="24" y1="5" x2="24" y2="10" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle class="bot-ant" cx="24" cy="4.5" r="2.8" fill="#3FD19A"/><rect x="2.5" y="21" width="4.5" height="11" rx="2.2" fill="#fff" opacity=".85"/><rect x="41" y="21" width="4.5" height="11" rx="2.2" fill="#fff" opacity=".85"/><rect x="6.5" y="10" width="35" height="31" rx="12" fill="#fff"/><rect x="11" y="16" width="26" height="15" rx="7.5" fill="#0D1726"/><g class="bot-eyes"><ellipse class="bot-eye" cx="18.5" cy="23.5" rx="2.8" ry="3.6" fill="#6FE3FF"/><ellipse class="bot-eye" cx="29.5" cy="23.5" rx="2.8" ry="3.6" fill="#6FE3FF"/></g><path d="M19.5 35.2q4.5 3 9 0" fill="none" stroke="#3B5BDB" stroke-width="2.2" stroke-linecap="round"/></svg></span>
     <div class="cb-head-txt">
-      <strong>M-iT Assistent</strong>
-      <span><span class="cb-online"></span>Online · Sofortantwort</span>
+      <strong>M-iT KI-Assistent</strong>
+      <span><span class="cb-online"></span>Automatische KI-Antworten</span>
     </div>
     <button class="cb-close" id="cbClose" aria-label="Chat schließen">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -1016,6 +1200,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   <div class="cb-msgs" id="cbMsgs" aria-live="polite" aria-relevant="additions"></div>
 
   <div class="cb-quick" id="cbQuick"></div>
+  <p class="cb-privacy">KI-Antworten · bitte keine Passwörter oder Bankdaten eingeben</p>
 
   <form class="cb-form" id="cbForm">
     <textarea class="cb-inp" id="cbInp" rows="1" placeholder="Schreiben Sie uns…" aria-label="Nachricht eingeben" maxlength="1000"></textarea>
@@ -1040,7 +1225,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 - Einsatzgebiet: Graz und Umgebung, Fernwartung österreichweit
 
 Leistungen:
-1. Software – Windows & Mac, E-Mail & Microsoft 365, Updates & Neuinstallation
+1. Software – Windows-Support, Programme installieren & einrichten, Updates & Neuinstallation
 2. Geräte & Einrichtung – PC/Laptop-Kaufberatung, Drucker, WLAN & Router
 3. Sicherheit – Virenschutz & Firewall, Backup & Wiederherstellung, Passwörter
 4. Web-Design – Neue Websites, Mobile-Optimierung, Pflege & Hosting
@@ -1059,7 +1244,9 @@ Regeln:
 - Sobald du Name + Kontakt + Problem hast, sage: "Vielen Dank! Wir melden uns so schnell wie möglich bei Ihnen." und weise auf WhatsApp hin: https://wa.me/4368184948421
 - Preise werden nach Aufwand berechnet und nach einem kostenlosen Erstgespräch besprochen – nenne keine konkreten Zahlen
 - Wichtige Garantie: Wenn wir ein Problem NICHT lösen können, zahlt der Kunde NICHTS. Keine Lösung = keine Kosten. Das ist unsere Garantie. Erwähne sie in einem kurzen Satz, wenn Kunden nach Preisen oder Risiken fragen – nicht in jeder Antwort.
-- Wenn Kunden unsicher sind ob es sich lohnt: erinnere sie an diese Garantie – sie haben nichts zu verlieren`;
+- Wenn Kunden unsicher sind ob es sich lohnt: erinnere sie an diese Garantie – sie haben nichts zu verlieren
+- Du bist eine KI, kein Mensch. Wenn jemand fragt, ob er mit einem Menschen spricht, sag ehrlich, dass du ein KI-Assistent bist, und nenne Telefon/WhatsApp +43 681 84948421 für ein persönliches Gespräch.
+- Hardware-Reparaturen und der Austausch von Bauteilen (z. B. Festplatte, SSD, RAM, Akku, Display, Mainboard) gehören NICHT zu unseren Leistungen. Sag das freundlich und biete an, was wir tun können: Daten sichern, ein neues Gerät einrichten oder bei der Kaufberatung helfen.`;
 
   // ── state ────────────────────────────────────────────────────────────────
   const history = [];
@@ -1155,7 +1342,7 @@ Regeln:
 
   // ── greeting ──────────────────────────────────────────────────────────────
   function greet(){
-    addMsg('bot','Hallo! 👋 Ich bin der KI-Assistent von M-iT Solution. Wie kann ich Ihnen heute helfen?');
+    addMsg('bot','Hallo! 👋 Ich bin ein **KI-Assistent** von M-iT Solution, also keine echte Person. Wenn Sie lieber mit einem Menschen sprechen, erreichen Sie uns per Telefon oder WhatsApp unter +43 681 84948421. Wie kann ich Ihnen helfen?');
     setQuick(['🖥️ PC / Laptop Problem','📶 WLAN / Netzwerk','🦠 Virus / Sicherheit','📅 Termin anfragen','💰 Kosten & Garantie','🌐 Website erstellen']);
     // show notification badge after 4s if chat is closed
     setTimeout(() => {
@@ -1242,5 +1429,46 @@ Regeln:
     <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.108.549 4.088 1.512 5.814L0 24l6.335-1.493A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.809 9.809 0 01-5.001-1.368l-.359-.214-3.71.874.936-3.617-.234-.372A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
   </span>
 </a>
+<script>
+(function(){
+  var h=document.getElementById('h3d'); if(!h) return;
+  h.setAttribute('aria-label',h.textContent.replace(/\s+/g,' ').trim());
+  var i=0;
+  function words(text,grad){
+    var f=document.createDocumentFragment();
+    text.split(/(\s+)/).forEach(function(part){
+      if(!part) return;
+      if(/^\s+$/.test(part)){f.appendChild(document.createTextNode(' '));return;}
+      var w=document.createElement('span'); w.className='w'; w.setAttribute('aria-hidden','true');
+      if(grad){var t=document.createElement('span');t.className='tw';t.textContent=part;t.style.setProperty('--i',i);i+=part.length;w.appendChild(t);}
+      else{for(var k=0;k<part.length;k++){var c=document.createElement('span');c.className='ch';c.textContent=part[k];c.style.setProperty('--i',i++);w.appendChild(c);}}
+      f.appendChild(w);
+    });
+    return f;
+  }
+  Array.prototype.slice.call(h.childNodes).forEach(function(n){
+    if(n.nodeType===3){h.replaceChild(words(n.textContent,false),n);}
+    else if(n.classList&&n.classList.contains('to')){var t=n.textContent;n.textContent='';n.appendChild(words(t,true));}
+  });
+  var hero=h.closest('.hero')||document.body, tx=0,ty=0,cx=0,cy=0,active=false,visible=true,t0=performance.now();
+  hero.addEventListener('pointermove',function(e){
+    if(e.pointerType!=='mouse') return;
+    var r=h.getBoundingClientRect();
+    tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width*.8)));
+    ty=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/(r.height*2)));
+    active=true;
+  });
+  hero.addEventListener('pointerleave',function(){active=false;});
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){visible=es[0].isIntersecting;}).observe(h);
+  (function loop(now){
+    requestAnimationFrame(loop);
+    if(!visible) return;
+    var t=(now-t0)/1000, gx=active?tx:Math.sin(t*.35)*.35, gy=active?ty:Math.cos(t*.28)*.25;
+    cx+=(gx-cx)*.04; cy+=(gy-cy)*.04;
+    h.style.transform='rotateX('+(-cy*5).toFixed(2)+'deg) rotateY('+(cx*7).toFixed(2)+'deg)';
+    h.style.setProperty('--sx',(-cx*1.1).toFixed(3)); h.style.setProperty('--sy',(1+cy*.6).toFixed(3));
+  })(t0);
+})();
+</script>
 </body>
 </html>
