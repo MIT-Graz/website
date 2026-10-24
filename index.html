@@ -979,7 +979,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     var dt=Math.min(50,now-last);last=now;
     mC.x+=(mT.x-mC.x)*.02;mC.y+=(mT.y-mC.y)*.02;
     rot+=dt*.00008*(rm?.6:1);
-    var small=W<760, cxp=W*(small?.5:.7)+mC.x*10, cyp=(small?gAnchor:H*.42)+mC.y*6,
+    var small=W<760, cxp=W*(small?.66:.7)+mC.x*10, cyp=(small?gAnchor:H*.42)+mC.y*6,
         tilt=.95+mC.y*.06, yaw=-.35+mC.x*.08, ct=Math.cos(tilt), st=Math.sin(tilt), cyw=Math.cos(yaw), syw=Math.sin(yaw), F=Math.max(W,H)*1.1,
         tsec=now/1000;
     ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,W,H);
