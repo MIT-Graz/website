@@ -137,7 +137,10 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgroun
 .hero{min-height:clamp(560px,82vh,760px);display:flex;align-items:center}
 .hero .hero-grid{width:100%}
 .hero .lead{text-shadow:0 1px 14px rgba(7,16,31,.95),0 0 4px rgba(7,16,31,.8);font-size:clamp(17px,1.6vw,19px);color:var(--stage-muted);max-width:50ch;margin-top:22px}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.guarantee{display:flex;align-items:flex-start;gap:10px;width:fit-content;max-width:100%;margin-top:20px;padding:11px 16px;border:1px solid rgba(63,209,154,.4);border-radius:12px;background:rgba(7,16,31,.55);color:var(--stage-ink);font-size:15px;line-height:1.45;text-shadow:0 1px 8px rgba(7,16,31,.9)}
+.guarantee svg{flex:none;margin-top:2px;color:var(--stage-ok)}
+.guarantee b{color:var(--stage-ok)}
 .facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:36px;font-size:14px;color:var(--stage-muted)}
 .facts span{display:inline-flex;align-items:center;gap:8px}
 .facts svg{color:var(--stage-ok)}
@@ -518,6 +521,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
         <span class="eyebrow"><span class="live-dot"></span>IT-Support · Vor Ort &amp; Remote</span>
         <h1 id="h3d">Professioneller IT-Support <span class="to">vor Ort &amp; remote.</span></h1>
         <p class="lead">Ihr IT-Partner in Graz für Software, Geräte-Einrichtung, IT-Sicherheit und Web-Design. Wir finden die Ursache, beheben das Problem und erklären Ihnen verständlich, was wir gemacht haben.</p>
+        <p class="guarantee"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Unsere Garantie:</b> Können wir Ihr Problem nicht lösen, zahlen Sie nichts.</span></p>
         <div class="ctas">
           <a class="btn btn-primary magnetic" href="#kontakt">Problem schildern
             <svg class="arr" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
