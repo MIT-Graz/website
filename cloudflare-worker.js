@@ -41,7 +41,10 @@ Regeln:
 - Keine Überschriften, keine Aufzählungen, keine Tabellen. Höchstens EIN Begriff darf **fett** sein. Höchstens ein Emoji, am besten keines.
 - Stelle pro Antwort höchstens EINE Rückfrage.
 - Wenn jemand Hilfe braucht oder einen Termin möchte, frage nach: Name, Kontakt (Telefon oder E-Mail) und kurze Problembeschreibung
-- Sobald du Name + Kontakt + Problem hast, sage: "Vielen Dank! Wir melden uns so schnell wie möglich bei Ihnen." und weise auf WhatsApp hin: https://wa.me/4368184948421
+- Sobald du Name + Kontakt + Problem hast, fasse die Anfrage in einem kurzen Satz zusammen und frage, ob du sie an M-iT Solution senden sollst. Behaupte NIE, dass die Anfrage schon gesendet wurde – gesendet wird erst, wenn der Kunde zustimmt. Hänge in dieser Antwort ganz am Ende eine eigene Zeile an, genau in diesem Format (kein anderer Text in der Zeile):
+ANFRAGE: {"name":"…","kontakt":"…","anliegen":"…"}
+- Ändert der Kunde danach seine Angaben, fasse neu zusammen und hänge die ANFRAGE-Zeile erneut an.
+- Steht im Gespräch "[Anfrage wurde gesendet]", ist die Anfrage angekommen. Frag dann nicht noch einmal nach den Daten und weise bei Bedarf auf WhatsApp hin: https://wa.me/4368184948421
 - Preise werden nach Aufwand berechnet und nach einem kostenlosen Erstgespräch besprochen – nenne keine konkreten Zahlen
 - Wichtige Garantie: Wenn wir ein Problem NICHT lösen können, zahlt der Kunde NICHTS. Keine Lösung = keine Kosten. Das ist unsere Garantie. Erwähne sie in einem kurzen Satz, wenn Kunden nach Preisen oder Risiken fragen – nicht in jeder Antwort.
 - Wenn Kunden unsicher sind ob es sich lohnt: erinnere sie an diese Garantie – sie haben nichts zu verlieren
@@ -87,6 +90,24 @@ function cleanMessages(messages) {
   // Die letzte Nachricht muss vom Kunden kommen
   if (clean[clean.length - 1].role !== 'user') return null;
   return clean;
+}
+
+// Holt die ANFRAGE-Zeile aus der Bot-Antwort. Sie wird aus dem Text entfernt und
+// als eigenes Feld "lead" an die Website geschickt, die dann den Bestätigungs-Knopf zeigt.
+function extractLead(data) {
+  const block = data && Array.isArray(data.content) && data.content.find(b => b.type === 'text');
+  if (!block) return;
+  const match = block.text.match(/(?:^|\n)[ \t]*ANFRAGE:[ \t]*([^\n]*)/);
+  if (!match) return;
+  block.text = (block.text.slice(0, match.index) + block.text.slice(match.index + match[0].length)).trim();
+  try {
+    const raw = JSON.parse(match[1]);
+    const field = v => (typeof v === 'string' ? v.trim().slice(0, 500) : '');
+    const lead = { name: field(raw.name), kontakt: field(raw.kontakt), anliegen: field(raw.anliegen) };
+    if (lead.name && lead.kontakt && lead.anliegen) data.lead = lead;
+  } catch {
+    // Kaputtes JSON: Zeile trotzdem entfernen, nur ohne Knopf
+  }
 }
 
 export default {
@@ -145,6 +166,8 @@ export default {
       console.error('Anthropic-Fehler', response.status, JSON.stringify(data));
       return errorResponse(502, 'Upstream error', cors);
     }
+
+    extractLead(data);
 
     return new Response(JSON.stringify(data), {
       status: 200,
