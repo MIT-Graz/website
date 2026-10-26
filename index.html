@@ -486,7 +486,9 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .hero h1 .from::after{transform:none}
-  .hero h1 .ch,.hero h1 .tw{opacity:1!important;transform:none!important}
+  /* 3D headline flies in even when system animations are off */
+  .hero h1#h3d .ch{animation:flipIn .95s cubic-bezier(.2,.9,.25,1.12) calc(var(--i)*32ms + .25s) forwards!important}
+  .hero h1#h3d .tw{animation:flipIn .95s cubic-bezier(.2,.9,.25,1.12) calc(var(--i)*32ms + .25s) forwards,flow 6s linear 0s infinite!important}
   .scene .code b,.done-ring svg circle,.done-ring svg path{opacity:1;transform:none;stroke-dashoffset:0}
   .task .bar i{width:100%}
   .toast{transform:none;opacity:1}
