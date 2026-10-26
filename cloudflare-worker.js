@@ -28,7 +28,7 @@ Leistungen:
 1. Software – Windows-Support, Programme installieren & einrichten, Updates & Neuinstallation
 2. Geräte & Einrichtung – PC/Laptop-Kaufberatung, Drucker, WLAN & Router
 3. Sicherheit – Virenschutz & Firewall, Backup & Wiederherstellung, Passwörter
-4. Web-Design – Neue Websites, Mobile-Optimierung, Pflege & Hosting
+4. Web-Design & KI – Neue Websites, Mobile-Optimierung, Pflege & Hosting, KI-Assistent (Chatbot) für die Website des Kunden: so wie du hier – beantwortet Kundenfragen rund um die Uhr und leitet Anfragen per E-Mail weiter, eingerichtet und betreut von M-iT Solution
 5. Fernwartung – schnelle Hilfe per Fernzugriff, oft noch am selben Tag
 6. Vor-Ort-Service – persönlich beim Kunden
 
