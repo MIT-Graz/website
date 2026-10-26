@@ -1188,6 +1188,19 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 .cb-qbtn{background:none;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:7px 13px;font:500 13px/1 var(--body);cursor:pointer;transition:background .2s,color .2s}
 .cb-qbtn:hover{background:var(--accent);color:#fff}
 
+/* Lead confirmation card */
+.cb-lead{align-self:flex-start;max-width:92%;background:var(--surface);border:1px solid var(--accent);border-radius:16px;border-bottom-left-radius:4px;padding:12px 14px;font:14px/1.45 var(--body);color:var(--ink)}
+.cb-lead strong{display:block;font-weight:700}
+.cb-lead dl{margin:6px 0 10px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px}
+.cb-lead dt{color:var(--muted);font-weight:600}
+.cb-lead dd{margin:0;word-break:break-word}
+.cb-lead-btns{display:flex;flex-direction:column;gap:4px}
+.cb-lead-send{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 12px;font:600 14px/1 var(--body);cursor:pointer}
+.cb-lead-send:disabled{opacity:.6;cursor:default}
+.cb-lead-form{background:none;border:none;color:var(--accent);font:500 13px/1.3 var(--body);cursor:pointer;text-decoration:underline;padding:6px 4px}
+.cb-lead-note{margin:8px 0 0;font-size:11px;line-height:1.4;color:var(--muted)}
+.cb-lead-done{color:#1F9D6B;font-weight:700}
+
 /* Input */
 .cb-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);align-items:flex-end}
 .cb-inp{flex:1;resize:none;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px/1.4 var(--body);color:var(--ink);background:var(--bg);transition:border-color .2s;max-height:100px;overflow-y:auto}
@@ -1237,11 +1250,14 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   // ── config ──────────────────────────────────────────────────────────────
   // API key, model and chatbot instructions are stored in the Cloudflare Worker (never exposed here)
   const PROXY_URL = 'https://mit-chat.mit-solution-tech.workers.dev'; // Cloudflare Worker proxy
+  const LEAD_EMAIL = 'mit.solution.tech@gmail.com'; // chat requests are sent here via FormSubmit
+  const YES = /^(ok|okay|ja|jap|passt|gerne|bitte|senden|ja,? bitte|ja,? gerne|ok,? bitte|passt so|ja,? senden)[\s.!]*$/i;
 
   // ── state ────────────────────────────────────────────────────────────────
   const history = [];
   let   busy    = false;
   let   notifShown = false;
+  let   pendingLead = null; // { lead, card } waiting for the customer's OK
 
   // ── DOM refs ─────────────────────────────────────────────────────────────
   const fab   = document.getElementById('cbFab');
@@ -1312,6 +1328,86 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     });
   }
 
+  // ── lead: confirm before sending ──────────────────────────────────────────
+  const isEmail = s => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+
+  function showLead(lead){
+    if(pendingLead) pendingLead.card.querySelector('.cb-lead-btns').remove();
+    const card = document.createElement('div');
+    card.className = 'cb-lead';
+    const title = document.createElement('strong');
+    title.textContent = 'Ihre Anfrage an M-iT Solution';
+    const dl = document.createElement('dl');
+    [['Name', lead.name], ['Kontakt', lead.kontakt], ['Anliegen', lead.anliegen]].forEach(([k, v]) => {
+      const dt = document.createElement('dt'); dt.textContent = k;
+      const dd = document.createElement('dd'); dd.textContent = v;
+      dl.append(dt, dd);
+    });
+    const btns = document.createElement('div');
+    btns.className = 'cb-lead-btns';
+    const sendBtn = document.createElement('button');
+    sendBtn.type = 'button'; sendBtn.className = 'cb-lead-send'; sendBtn.textContent = '✓ Anfrage senden';
+    sendBtn.addEventListener('click', submitLead);
+    const formBtn = document.createElement('button');
+    formBtn.type = 'button'; formBtn.className = 'cb-lead-form'; formBtn.textContent = 'Lieber selbst im Kontaktformular schreiben';
+    formBtn.addEventListener('click', () => toContactForm(lead));
+    btns.append(sendBtn, formBtn);
+    const note = document.createElement('p');
+    note.className = 'cb-lead-note';
+    note.textContent = 'Erst wenn Sie auf „Anfrage senden“ klicken oder „ok“ schreiben, werden diese Angaben per E-Mail an M-iT Solution geschickt.';
+    card.append(title, dl, btns, note);
+    msgs.appendChild(card);
+    msgs.scrollTop = msgs.scrollHeight;
+    pendingLead = { lead, card };
+  }
+
+  async function submitLead(){
+    if(!pendingLead || busy) return;
+    const { lead, card } = pendingLead;
+    const sendBtn = card.querySelector('.cb-lead-send');
+    sendBtn.disabled = true; sendBtn.textContent = 'Wird gesendet…';
+    busy = true;
+    try {
+      const body = {
+        _subject:  'Neue Chat-Anfrage von ' + lead.name,
+        _template: 'table',
+        Name:      lead.name,
+        Kontakt:   lead.kontakt,
+        Anliegen:  lead.anliegen,
+        Quelle:    'KI-Assistent auf der Website'
+      };
+      if(isEmail(lead.kontakt)) body._replyto = lead.kontakt;
+      const res = await fetch('https://formsubmit.co/ajax/' + LEAD_EMAIL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const d = await res.json();
+      if(!(d && (d.success === true || d.success === 'true'))) throw new Error('fail');
+      pendingLead = null;
+      card.querySelector('.cb-lead-btns').innerHTML = '<span class="cb-lead-done">✓ Anfrage gesendet</span>';
+      card.querySelector('.cb-lead-note').remove();
+      for(let i = history.length - 1; i >= 0; i--){
+        if(history[i].role === 'assistant'){ history[i].content += '\n\n[Anfrage wurde gesendet]'; break; }
+      }
+      addMsg('bot', 'Vielen Dank, ' + lead.name + '! Ihre Anfrage ist bei uns angekommen. Wir melden uns so schnell wie möglich bei Ihnen. Schneller geht es per WhatsApp: https://wa.me/4368184948421');
+    } catch(e) {
+      sendBtn.disabled = false; sendBtn.textContent = '✓ Anfrage senden';
+      addMsg('bot', 'Das Senden hat leider nicht geklappt. Bitte versuchen Sie es nochmal, nutzen Sie das Kontaktformular oder rufen Sie uns an: +43 681 84948421.');
+    }
+    busy = false;
+  }
+
+  function toContactForm(lead){
+    closeChat();
+    document.getElementById('name').value = lead.name;
+    const email = document.getElementById('email');
+    if(isEmail(lead.kontakt)) email.value = lead.kontakt;
+    document.getElementById('message').value = lead.anliegen + (isEmail(lead.kontakt) ? '' : '\n\nTelefon: ' + lead.kontakt);
+    document.getElementById('kontakt').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => (email.value ? document.getElementById('message') : email).focus({ preventScroll: true }), 600);
+  }
+
   // ── open / close ──────────────────────────────────────────────────────────
   function openChat(){
     win.classList.add('open');
@@ -1348,6 +1444,16 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     text = text.trim();
     if(!text || busy) return;
 
+    // Customer answers "ok" / "ja" to a pending request: send it, no AI call needed
+    if(pendingLead && YES.test(text)){
+      addMsg('user', text);
+      inp.value = '';
+      inp.style.height = '';
+      send.disabled = true;
+      submitLead();
+      return;
+    }
+
     addMsg('user', text);
     history.push({role:'user', content: text});
     inp.value = '';
@@ -1374,6 +1480,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
         const reply = data.content[0].text;
         history.push({role:'assistant', content: reply});
         addMsg('bot', reply);
+        if(data.lead) showLead(data.lead);
       }
     } catch(e) {
       removeTyping();
