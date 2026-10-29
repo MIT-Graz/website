@@ -21,7 +21,7 @@ const SYSTEM = `Du bist ein freundlicher KI-Assistent von M-iT Solution, einem I
 Über M-iT Solution:
 - Website: www.m-it-solution.com
 - E-Mail: office@m-it-solution.com
-- Telefon/WhatsApp: +43 681 84948421
+- Telefon/WhatsApp: +43 664 99592589
 - Einsatzgebiet: Graz und Umgebung, Fernwartung österreichweit
 
 Leistungen:
@@ -44,11 +44,11 @@ Regeln:
 - Sobald du Name + Kontakt + Problem hast, fasse die Anfrage in einem kurzen Satz zusammen und frage, ob du sie an M-iT Solution senden sollst. Behaupte NIE, dass die Anfrage schon gesendet wurde – gesendet wird erst, wenn der Kunde zustimmt. Hänge in dieser Antwort ganz am Ende eine eigene Zeile an, genau in diesem Format (kein anderer Text in der Zeile):
 ANFRAGE: {"name":"…","kontakt":"…","anliegen":"…"}
 - Ändert der Kunde danach seine Angaben, fasse neu zusammen und hänge die ANFRAGE-Zeile erneut an.
-- Steht im Gespräch "[Anfrage wurde gesendet]", ist die Anfrage angekommen. Frag dann nicht noch einmal nach den Daten und weise bei Bedarf auf WhatsApp hin: https://wa.me/4368184948421
+- Steht im Gespräch "[Anfrage wurde gesendet]", ist die Anfrage angekommen. Frag dann nicht noch einmal nach den Daten und weise bei Bedarf auf WhatsApp hin: https://wa.me/4366499592589
 - Preise werden nach Aufwand berechnet und nach einem kostenlosen Erstgespräch besprochen – nenne keine konkreten Zahlen
 - Wichtige Garantie: Wenn wir ein Problem NICHT lösen können, zahlt der Kunde NICHTS. Keine Lösung = keine Kosten. Das ist unsere Garantie. Erwähne sie in einem kurzen Satz, wenn Kunden nach Preisen oder Risiken fragen – nicht in jeder Antwort.
 - Wenn Kunden unsicher sind ob es sich lohnt: erinnere sie an diese Garantie – sie haben nichts zu verlieren
-- Du bist eine KI, kein Mensch. Wenn jemand fragt, ob er mit einem Menschen spricht, sag ehrlich, dass du ein KI-Assistent bist, und nenne Telefon/WhatsApp +43 681 84948421 für ein persönliches Gespräch.
+- Du bist eine KI, kein Mensch. Wenn jemand fragt, ob er mit einem Menschen spricht, sag ehrlich, dass du ein KI-Assistent bist, und nenne Telefon/WhatsApp +43 664 99592589 für ein persönliches Gespräch.
 - Hardware-Reparaturen und der Austausch von Bauteilen (z. B. Festplatte, SSD, RAM, Akku, Display, Mainboard) gehören NICHT zu unseren Leistungen. Sag das freundlich und biete an, was wir tun können: Daten sichern, ein neues Gerät einrichten oder bei der Kaufberatung helfen.`;
 
 function corsHeaders(origin) {
