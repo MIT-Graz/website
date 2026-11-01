@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>M-iT Solution – IT-Support Graz | Software, Geräte, Sicherheit</title>
-<meta name="description" content="IT-Support in Graz für Privat- und Geschäftskunden: Software, Geräte-Einrichtung, IT-Sicherheit und Web-Design. Schnelle Hilfe per Fernwartung oder vor Ort in Graz und Umgebung.">
+<meta name="description" content="IT-Support in Graz für Privat- und Geschäftskunden: Software, Einrichtung von PC, Laptop und Handy, IT-Sicherheit und Web-Design. Schnelle Hilfe per Fernwartung oder vor Ort in Graz und Umgebung.">
 <link rel="canonical" href="https://m-it-solution.com/">
 <meta name="theme-color" content="#07101F">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_AT">
 <meta property="og:site_name" content="M-iT Solution">
 <meta property="og:title" content="M-iT Solution – Professioneller IT-Support vor Ort &amp; remote">
-<meta property="og:description" content="IT-Support in Graz für Software, Geräte-Einrichtung, Sicherheit und Web-Design. Per Fernwartung oder vor Ort in Graz und Umgebung.">
+<meta property="og:description" content="IT-Support in Graz für Software, Einrichtung von PC, Laptop und Handy, Sicherheit und Web-Design. Per Fernwartung oder vor Ort in Graz und Umgebung.">
 <meta property="og:url" content="https://m-it-solution.com/">
 <meta property="og:image" content="https://m-it-solution.com/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="img/logo-globe.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"M-iT Solution","url":"https://m-it-solution.com/","logo":"https://m-it-solution.com/img/logo-globe.png","image":"https://m-it-solution.com/img/og-image.jpg","email":"office@m-it-solution.com","telephone":"+4366499592589","description":"IT-Support in Graz für Software, Geräte-Einrichtung, IT-Sicherheit und Web-Design – per Fernwartung oder vor Ort in Graz und Umgebung.","sameAs":["https://www.instagram.com/m.it.solution/"],"areaServed":{"@type":"City","name":"Graz"},"address":{"@type":"PostalAddress","addressLocality":"Graz","addressRegion":"Steiermark","addressCountry":"AT"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"M-iT Solution","url":"https://m-it-solution.com/","logo":"https://m-it-solution.com/img/logo-globe.png","image":"https://m-it-solution.com/img/og-image.jpg","email":"office@m-it-solution.com","telephone":"+4366499592589","description":"IT-Support in Graz für Software, Einrichtung von PC, Laptop und Handy, IT-Sicherheit und Web-Design – per Fernwartung oder vor Ort in Graz und Umgebung.","sameAs":["https://www.instagram.com/m.it.solution/"],"areaServed":{"@type":"City","name":"Graz"},"address":{"@type":"PostalAddress","addressLocality":"Graz","addressRegion":"Steiermark","addressCountry":"AT"}}</script>
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -327,6 +327,21 @@ section.block{padding-block:clamp(64px,9vw,112px)}
 .step h3{font-size:22px;font-weight:700}
 .step p{color:var(--muted);font-size:15px}
 
+/* Prices */
+.prices{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:stretch}
+@media (max-width:860px){.prices{grid-template-columns:1fr}}
+.price-main{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:32px 28px;display:grid;gap:14px;align-content:start}
+.price-main .amount{font:700 clamp(28px,3.6vw,36px)/1 var(--display);letter-spacing:-.03em}
+.price-main .amount small{font:500 16px/1 var(--body);color:var(--muted);letter-spacing:0;margin-left:6px}
+.price-main .sub{color:var(--muted);font-size:16px}
+.price-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.price-list li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.price-list li svg{flex:none;margin-top:3px;color:var(--ok)}
+.price-list strong{display:block;font-weight:600}
+.price-list span{color:var(--muted);font-size:15px}
+.price-note{margin-top:20px;color:var(--muted);font-size:14px}
+.price-guarantee{background:var(--ok-soft);border-color:transparent!important}
+
 /* About */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start}
 @media (max-width:860px){.about{grid-template-columns:1fr}}
@@ -507,6 +522,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
       <a href="#leistungen">Leistungen</a>
       <a href="#film">Remote-Support</a>
       <a href="#ablauf">Ablauf</a>
+      <a href="#preise">Preise</a>
       <a href="#ueber-uns">Über uns</a>
       <a href="#faq">FAQ</a>
       <a href="#kontakt">Kontakt</a>
@@ -524,7 +540,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
       <div>
         <span class="eyebrow"><span class="live-dot"></span>IT-Support · Vor Ort &amp; Remote</span>
         <h1 id="h3d">Professioneller IT-Support <span class="to">vor Ort &amp; remote.</span></h1>
-        <p class="lead">Ihr IT-Partner in Graz für Software, Geräte-Einrichtung, IT-Sicherheit und Web-Design. Wir finden die Ursache, beheben das Problem und erklären Ihnen verständlich, was wir gemacht haben.</p>
+        <p class="lead">Ihr IT-Partner in Graz für Software, Einrichtung von PC, Laptop &amp; Handy, IT-Sicherheit und Web-Design. Wir finden die Ursache, beheben das Problem und erklären Ihnen verständlich, was wir gemacht haben.</p>
         <p class="guarantee"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Unsere Garantie:</b> Können wir Ihr Problem nicht lösen, zahlen Sie nichts.</span></p>
         <div class="ctas">
           <a class="btn btn-primary magnetic" href="#kontakt">Problem schildern
@@ -628,8 +644,8 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
           <figure class="ph"><img src="img/devices.jpg" alt="Aufgeräumter Arbeitsplatz mit Monitor, Tastatur und Zubehör" loading="lazy" width="1200" height="800"></figure>
           <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M1 18.5h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="16" y="9" width="6" height="11" rx="1.5" fill="var(--surface)" stroke="currentColor" stroke-width="1.8"/><path d="M18.5 17.5h1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
           <h3>Geräte &amp; Einrichtung</h3>
-          <p>Neue Geräte startklar machen: Wir beraten beim Kauf, richten PCs, Laptops und Drucker ein und verbinden alles miteinander.</p>
-          <ul><li>Kaufberatung für PCs &amp; Laptops</li><li>Drucker &amp; Zubehör einrichten</li><li>WLAN &amp; Router einrichten</li></ul>
+          <p>Neue Geräte startklar machen: Wir beraten beim Kauf, richten PCs, Laptops, Handys und Tablets ein und verbinden alles miteinander.</p>
+          <ul><li>Kaufberatung &amp; Einrichtung von PC, Laptop &amp; Handy</li><li>E-Mail, Apps &amp; Konten einrichten</li><li>Drucker, WLAN &amp; Router einrichten</li></ul>
         </article>
         <article class="svc tilt reveal">
           <figure class="ph"><img src="img/security.jpg" alt="Vorhängeschloss auf einer Computertastatur" loading="lazy" width="1200" height="800"></figure>
@@ -657,7 +673,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
         <div class="mode tilt reveal">
           <span class="tag">Vor-Ort-Service</span>
           <h3>Persönlich bei Ihnen</h3>
-          <p>Wenn neue Geräte eingerichtet oder das WLAN konfiguriert werden muss, kommen wir direkt zu Ihnen.</p>
+          <p>Wenn PC, Laptop oder Handy eingerichtet oder das WLAN konfiguriert werden muss, kommen wir direkt zu Ihnen.</p>
           <img class="mode-bg" src="img/router.jpg" alt="" loading="lazy">
         </div>
       </div>
@@ -760,6 +776,32 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     </div>
   </section>
 
+  <!-- PRICES -->
+  <section class="block" id="preise" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Preise</span>
+          <h2>Faire Preise, ohne Überraschungen.</h2>
+        </div>
+        <p>Sie zahlen nur die Zeit, die wir wirklich für Sie arbeiten. Und nur, wenn wir Ihr Problem lösen.</p>
+      </div>
+      <div class="prices">
+        <div class="price-main reveal">
+          <span class="eyebrow">Vor Ort &amp; Fernwartung</span>
+          <div class="amount">50&nbsp;€<small>pro Stunde</small></div>
+          <p class="sub">Bis 30 Minuten: <strong style="color:var(--ink)">25&nbsp;€</strong>. Danach pro angefangener Viertelstunde 12,50&nbsp;€. Gleicher Preis bei Ihnen zu Hause, im Betrieb oder per Fernwartung.</p>
+        </div>
+        <ul class="price-list reveal">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Anfahrt in Graz inklusive</strong><span>Keine zusätzlichen Fahrtkosten im Stadtgebiet. Graz-Umgebung auf Anfrage.</span></div></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Kostenloses Erstgespräch</strong><span>Wir besprechen Ihr Anliegen vorab, damit Sie wissen, woran Sie sind.</span></div></li>
+          <li class="price-guarantee"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Kein Erfolg, keine Kosten</strong><span>Können wir das Problem nicht lösen, zahlen Sie nichts.</span></div></li>
+        </ul>
+      </div>
+      <p class="price-note"><!-- ENTWURF: nach WKO-Termin prüfen (Kleinunternehmer?) --> Alle Preise sind Endpreise inkl. 20&nbsp;% USt.</p>
+    </div>
+  </section>
+
   <!-- ABOUT -->
   <section class="block" id="ueber-uns" style="padding-top:0">
     <div class="wrap about">
@@ -768,7 +810,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
         <h2>Ihr bevorzugter Partner für umfassende IT-Unterstützung.</h2>
       </div>
       <div class="copy reveal">
-        <p>Bei <strong>M-iT Solution</strong> steht außergewöhnliche IT-Unterstützung im Mittelpunkt. Als IT-Dienstleister in Graz betreuen wir Software, Geräte-Einrichtung, Sicherheit und Web-Design und helfen vor Ort in Graz genauso wie aus der Ferne.</p>
+        <p>Bei <strong>M-iT Solution</strong> steht außergewöhnliche IT-Unterstützung im Mittelpunkt. Als IT-Dienstleister in Graz betreuen wir Software, die Einrichtung von PC, Laptop und Handy, Sicherheit und Web-Design und helfen vor Ort in Graz genauso wie aus der Ferne.</p>
         <p>Ob schnelle Fehlerbehebung oder durchdachte IT-Strategie: Wir lösen technische Herausforderungen in Graz und Umgebung effizient und sprechen dabei Ihre Sprache.</p>
         <dl class="values">
           <div><dt>Verständlich</dt><dd>Wir erklären, was wir tun, ohne Fachjargon.</dd></div>
@@ -1436,7 +1478,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   // ── greeting ──────────────────────────────────────────────────────────────
   function greet(){
     addMsg('bot','Hallo! 👋 Ich bin ein **KI-Assistent** von M-iT Solution, also keine echte Person. Wenn Sie lieber mit einem Menschen sprechen, erreichen Sie uns per Telefon oder WhatsApp unter +43 664 99592589. Wie kann ich Ihnen helfen?');
-    setQuick(['🖥️ PC / Laptop Problem','📶 WLAN / Netzwerk','🦠 Virus / Sicherheit','📅 Termin anfragen','💰 Kosten & Garantie','🌐 Website erstellen']);
+    setQuick(['🖥️ PC / Laptop / Handy','📶 WLAN / Netzwerk','🦠 Virus / Sicherheit','📅 Termin anfragen','💰 Kosten & Garantie','🌐 Website erstellen']);
     // show notification badge after 4s if chat is closed
     setTimeout(() => {
       if(!win.classList.contains('open') && !notifShown){
