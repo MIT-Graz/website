@@ -6,6 +6,8 @@
 const ALLOWED_ORIGINS = [
   'https://www.m-it-solution.com',
   'https://m-it-solution.com',
+  'https://merens.at',
+  'https://www.merens.at',
 ];
 
 const MODEL      = 'claude-haiku-4-5';
