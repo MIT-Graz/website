@@ -77,6 +77,14 @@ p{margin:0}
 .btn-ghost{border-color:var(--line);color:var(--ink);background:var(--surface)}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 .btn:active{transform:scale(.97)!important}
+.hero .ctas .btn{flex:1 1 auto;min-height:52px;padding:0 20px;border-radius:14px;font-size:15px;font-weight:600;letter-spacing:.005em;white-space:nowrap;justify-content:center;transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,background .22s ease,border-color .22s ease}
+.hero .ctas .btn:hover{transform:translateY(-2px)}
+.hero .ctas .btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.hero .ctas .btn.cta-wa{background:linear-gradient(135deg,#0F9457 0%,#0A6F44 100%);color:#fff;border-color:rgba(120,240,180,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 10px 28px -10px rgba(18,180,105,.75)}
+.hero .ctas .btn.cta-wa:hover{border-color:rgba(150,255,200,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 16px 36px -10px rgba(18,200,115,.9)}
+.hero .ctas .btn.cta-sec{background:rgba(255,255,255,.07);color:#fff;border-color:rgba(255,255,255,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hero .ctas .btn.cta-sec:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 14px 32px -14px rgba(0,0,0,.7)}
+@media (max-width:560px){.hero .ctas .btn{flex:1 1 100%}}
 .stage .btn-primary{background:var(--stage-accent);color:#07101F;box-shadow:0 8px 28px -8px rgba(124,155,255,.7)}
 .stage .btn-ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:var(--stage-ink)}
 .stage .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:var(--stage-accent);color:#fff}
@@ -543,7 +551,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
         <p class="lead">Ihr IT-Partner in Graz für Software, Einrichtung von PC, Laptop &amp; Handy, IT-Sicherheit und Web-Design. Wir finden die Ursache, beheben das Problem und erklären Ihnen verständlich, was wir gemacht haben.</p>
         <p class="guarantee"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Unsere Garantie:</b> Können wir Ihr Problem nicht lösen, zahlen Sie nichts.</span></p>
         <div class="ctas">
-          <a class="btn magnetic" href="https://wa.me/4366499592589" target="_blank" rel="noopener" style="background:#25D366;color:#06281A;border-color:#25D366">Per WhatsApp schreiben</a> <a class="btn btn-primary magnetic" href="#kontakt">Problem schildern
+          <a class="btn cta-wa" href="https://wa.me/4366499592589" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.108.549 4.088 1.512 5.814L0 24l6.335-1.493A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.809 9.809 0 01-5.001-1.368l-.359-.214-3.71.874.936-3.617-.234-.372A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>Per WhatsApp schreiben</a> <a class="btn btn-primary cta-sec" href="#kontakt">Problem schildern
             <svg class="arr" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           
