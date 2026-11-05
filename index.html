@@ -1137,7 +1137,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   if('IntersectionObserver' in window){var auto=playing;new IntersectionObserver(function(e){if(!reduce){if(e[0].isIntersecting){if(auto&&!playing)setPlay(true)}else{auto=playing;if(playing)setPlay(false)}}},{threshold:.25}).observe(document.getElementById('player'))}
   raf=requestAnimationFrame(loop);
 
-  /* Contact form – sends to your inbox via FormSubmit.co */
+  /* Contact form – sends to your inbox via Formspree */
   var CONTACT_EMAIL='office@merens.at';
   var form=document.getElementById('contactForm'), err=document.getElementById('formErr'),
       result=document.getElementById('result'), summary=document.getElementById('summary'), copyBtn=document.getElementById('copyBtn');
@@ -1155,10 +1155,10 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     var text='Name: '+name+'\nE-Mail: '+email+'\nThema: '+(topics.join(', ')||'Nicht angegeben')+'\nBevorzugt: '+form.mode.value+'\n\n'+m;
     summary.textContent=text;
     sendBtn.disabled=true;sendLbl.nodeValue='Wird gesendet… ';
-    fetch('https://formsubmit.co/ajax/'+CONTACT_EMAIL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({_subject:'Neue Support-Anfrage von '+name,_template:'table',_replyto:email,Name:name,'E-Mail':email,Thema:topics.join(', ')||'Nicht angegeben','Bevorzugte Hilfe':form.mode.value,Nachricht:m})})
+    fetch('https://formspree.io/f/xzeewvgr',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({_subject:'Neue Support-Anfrage von '+name,_replyto:email,Name:name,'E-Mail':email,Thema:topics.join(', ')||'Nicht angegeben','Bevorzugte Hilfe':form.mode.value,Nachricht:m})})
     .then(function(r){return r.json()}).then(function(d){
-      if(!(d&&(d.success===true||d.success==='true'))) throw new Error('fail');
+      if(!(d&&d.ok===true)) throw new Error('fail');
       result.innerHTML='<strong>Danke, '+name.replace(/[<>&]/g,'')+'! Ihre Anfrage ist bei uns angekommen.</strong><p style="font-size:14px">Wir melden uns so schnell wie möglich unter '+email.replace(/[<>&]/g,'')+'.</p>';
       result.hidden=false;form.reset();
     }).catch(function(){
@@ -1299,7 +1299,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   // ── config ──────────────────────────────────────────────────────────────
   // API key, model and chatbot instructions are stored in the Cloudflare Worker (never exposed here)
   const PROXY_URL = 'https://mit-chat.mit-solution-tech.workers.dev'; // Cloudflare Worker proxy
-  const LEAD_EMAIL = 'office@merens.at'; // chat requests are sent here via FormSubmit
+  const LEAD_URL = 'https://formspree.io/f/xzeewvgr'; // chat requests are sent here via Formspree
   const YES = /^(ok|okay|ja|jap|passt|gerne|bitte|senden|ja,? bitte|ja,? gerne|ok,? bitte|passt so|ja,? senden)[\s.!]*$/i;
 
   // ── state ────────────────────────────────────────────────────────────────
@@ -1419,20 +1419,20 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
     try {
       const body = {
         _subject:  'Neue Chat-Anfrage von ' + lead.name,
-        _template: 'table',
+        
         Name:      lead.name,
         Kontakt:   lead.kontakt,
         Anliegen:  lead.anliegen,
         Quelle:    'KI-Assistent auf der Website'
       };
       if(isEmail(lead.kontakt)) body._replyto = lead.kontakt;
-      const res = await fetch('https://formsubmit.co/ajax/' + LEAD_EMAIL, {
+      const res = await fetch(LEAD_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(body)
       });
       const d = await res.json();
-      if(!(d && (d.success === true || d.success === 'true'))) throw new Error('fail');
+      if(!(d && d.ok === true)) throw new Error('fail');
       pendingLead = null;
       card.querySelector('.cb-lead-btns').innerHTML = '<span class="cb-lead-done">✓ Anfrage gesendet</span>';
       card.querySelector('.cb-lead-note').remove();
