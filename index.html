@@ -893,6 +893,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
           </select>
         </label>
         <label for="message">Ihre Nachricht<textarea id="message" name="message" placeholder="Was ist passiert? Seit wann? Welches Gerät?"></textarea></label>
+        <p style="margin:0;font-size:13.5px;color:var(--muted)">Ihre Angaben verwenden wir nur für Ihre Anfrage. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
         <p class="err" id="formErr" hidden></p>
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
         <button class="btn btn-primary magnetic" type="submit" style="justify-self:start">Anfrage senden
@@ -911,7 +912,8 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
       <a href="#leistungen">Leistungen</a>
       <a href="#kontakt">Kontakt</a>
       <a href="https://www.instagram.com/m.it.solution/" target="_blank" rel="noopener">Instagram</a>
-      <a href="#kontakt">Impressum</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
     </nav>
   </div>
 </footer>
@@ -1482,7 +1484,7 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
 
   // ── greeting ──────────────────────────────────────────────────────────────
   function greet(){
-    addMsg('bot','Hallo! 👋 Ich bin ein **KI-Assistent** von Merens IT, also keine echte Person. Wenn Sie lieber mit einem Menschen sprechen, erreichen Sie uns am schnellsten per WhatsApp oder telefonisch unter +43 664 99592589. Wie kann ich Ihnen helfen?');
+    addMsg('bot','Hallo! 👋 Ich bin ein **KI-Assistent** von Merens IT, also keine echte Person. Wenn Sie lieber mit einem Menschen sprechen, erreichen Sie uns am schnellsten per WhatsApp oder telefonisch unter +43 664 99592589. Bitte geben Sie hier keine Passwörter oder Bankdaten ein. Wie kann ich Ihnen helfen?');
     setQuick(['🖥️ PC / Laptop / Handy','📶 WLAN / Netzwerk','🦠 Virus / Sicherheit','📅 Termin anfragen','💰 Kosten & Garantie','🌐 Website erstellen']);
     // show notification badge after 4s if chat is closed
     setTimeout(() => {
@@ -1616,5 +1618,6 @@ footer{background:var(--stage);color:var(--stage-muted);padding-block:40px}
   })(t0);
 })();
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9dab97f2c6b8448aab697928414340f9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
